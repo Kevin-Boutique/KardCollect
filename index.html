@@ -673,11 +673,17 @@
   // ── FILTERS ──
   function cardMatchesGrader(c) { return graderFilter==='all' || c.gradingService===graderFilter; }
   function cardMatchesLang(c)   { return langFilter==='all' || c.language===langFilter; }
+  function renderCurrent() {
+    if (currentView==='loose')  renderLoose(currentFilter);
+    else if (currentView==='sealed') renderSealed(currentFilter);
+    else renderAll(currentFilter);
+  }
+
   function filterLang(l, btn) {
     langFilter = l;
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active-lang'));
     if (btn) btn.classList.add('active-lang');
-    renderAll(currentFilter);
+    renderCurrent();
   }
   function cardMatchesGrade(c) {
     if (gradeFilter==='all') return true;
@@ -701,19 +707,19 @@
     graderFilter = g;
     document.querySelectorAll('.grader-btn').forEach(b=>b.classList.remove('active-grader'));
     if (btn) btn.classList.add('active-grader');
-    renderAll(currentFilter);
+    renderCurrent();
   }
   function filterGrade(g, btn) {
     gradeFilter = g;
     document.querySelectorAll('.grade-btn:not(.grader-btn)').forEach(b=>b.classList.remove('active'));
     if (btn) btn.classList.add('active');
-    renderAll(currentFilter);
+    renderCurrent();
   }
   function clearSearch() {
     document.getElementById('search-input').value='';
     searchQuery='';
     document.getElementById('search-clear').classList.remove('visible');
-    renderAll(currentFilter);
+    renderCurrent();
   }
 
   // ── RENDER ──
@@ -881,14 +887,14 @@
     input.addEventListener('input', () => {
       searchQuery = input.value.trim().toLowerCase();
       clearBtn.classList.toggle('visible', searchQuery.length>0);
-      renderAll(currentFilter);
+      renderCurrent();
     });
     clearBtn.addEventListener('click', clearSearch);
 
     // Tri
     document.getElementById('sort-select').addEventListener('change', function() {
       sortOrder = this.value;
-      renderAll(currentFilter);
+      renderCurrent();
     });
 
     // Clic sur les cartes (délégation)
@@ -1063,7 +1069,11 @@
 
   function renderSealed(filter) {
     const catalog = document.getElementById('catalog');
-    const items = SEALED.filter(c => !c.sold && (filter==='all'||c.universe===filter) && cardMatchesLang(c));
+    const items = sortCards(SEALED.filter(c => !c.sold
+      && (filter==='all'||c.universe===filter)
+      && cardMatchesLang(c)
+      && cardMatchesSearch(c)
+    ));
     let html = '';
     if (items.length) html = `<div class="grid">${items.map(renderSealedCard).join('')}</div>`;
     const soldItems = SEALED.filter(c => c.sold && (filter==='all'||c.universe===filter));
@@ -1105,7 +1115,11 @@
 
   function renderLoose(filter) {
     const catalog = document.getElementById('catalog');
-    let items = LOOSE.filter(c => !c.sold && (filter==='all' || c.universe===filter) && cardMatchesLang(c));
+    let items = sortCards(LOOSE.filter(c => !c.sold
+      && (filter==='all' || c.universe===filter)
+      && cardMatchesLang(c)
+      && cardMatchesSearch(c)
+    ));
     let html = '';
     if (items.length) {
       html = `<div class="grid">${items.map(renderLooseCard).join('')}</div>`;
