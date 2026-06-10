@@ -380,7 +380,7 @@
     <span class="trust-sep">·</span>
     <span class="trust-item">✅ Vendeur vérifié</span>
     <span class="trust-sep">·</span>
-    <span class="trust-item">🏆 <strong>64 ventes</strong> réalisées</span>
+    <span class="trust-item">🏆 <strong id="trust-sold">64</strong> ventes réalisées</span>
     <span class="trust-sep">·</span>
     <span class="trust-item">📦 Envoi soigné en boîte rigide · 🎥 Préparation filmée</span>
   </div>
@@ -775,10 +775,12 @@
 
   function updateHeroStats() {
     const soldN = [...CARDS,...LOOSE,...SEALED].filter(c=>c.sold).length;
+    const total = 64 + soldN;
     document.getElementById('stat-graded').textContent = CARDS.filter(c=>!c.sold).length;
     document.getElementById('stat-sealed').textContent = SEALED.filter(c=>!c.sold).length;
     document.getElementById('stat-loose').textContent  = LOOSE.filter(c=>!c.sold).length;
-    document.getElementById('stat-sold').textContent   = 64 + soldN;
+    document.getElementById('stat-sold').textContent   = total;
+    document.getElementById('trust-sold').textContent  = total;
   }
 
   function updateFilterButtons(source) {
