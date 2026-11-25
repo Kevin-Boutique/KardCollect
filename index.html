@@ -1,1190 +1,491 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KardCollect — Cartes Gradées</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --white: #ffffff;
-      --blue: #1d6fe8;
-      --blue-light: #e8f1fd;
-      --red: #e8271d;
-      --green: #22b24c;
-      --yellow: #f5c518;
-      --yellow-light: #fffbe8;
-      --dark: #1a1a2e;
-      --gray: #f4f6f9;
-      --text: #222;
-      --muted: #777;
-      --radius: 18px;
-      --shadow: 0 4px 24px rgba(0,0,0,0.10);
-      --shadow-hover: 0 8px 40px rgba(0,0,0,0.16);
-      --lol:       #1a9e2c;
-      --lol-light: #e6f7e8;
-      --db:        #f97316;
-      --db-light:  #fff3e8;
-      --psa: #c8102e; --bgs: #a8a9ad; --pca: #111111; --ccc: #002395;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Nunito', sans-serif; background: var(--white); color: var(--text); min-height: 100vh; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kevin-Boutique</title>
+<meta name="description" content="Cartes gradées : Pokémon, One Piece, Riftbound et Dragon Ball. Envoi en boîte rigide, préparation filmée.">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1013;--bg2:#13141a;--card:#15161b;--line:#24262d;--line2:#34363f;--text:#ece8df;--muted:#8e8e99;--soft:#a9a9b3;--gold:#c2a36b;--green:#6fcf8a}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,sans-serif;-webkit-text-size-adjust:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+.serif{font-family:Fraunces,serif}
+.lbl{font:500 11px Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 
-    /* ── HEADER ── */
-    header { background: var(--dark); padding: 0 24px; position: sticky; top: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; height: 64px; box-shadow: 0 2px 16px rgba(0,0,0,0.25); }
-    .logo { font-family: 'Bangers', cursive; font-size: 2rem; letter-spacing: 1px; color: var(--white); display: flex; align-items: center; gap: 6px; text-decoration: none; }
-    .logo:hover { opacity: 0.85; }
-    .logo-img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; flex-shrink: 0; mix-blend-mode: screen; }
-    
-    
+/* header */
+header{position:sticky;top:0;z-index:40;background:rgba(15,16,19,.96);backdrop-filter:blur(6px);border-bottom:1px solid #1f2128}
+.head{display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px}
+.logo{display:flex;align-items:baseline;gap:10px;font:600 25px Fraunces,serif;white-space:nowrap}
+.logo b{color:var(--gold);font-weight:600}
+.logo-img{width:40px;height:40px;object-fit:contain;mix-blend-mode:screen;align-self:center;margin-right:-2px}
+.beta{border:1px solid var(--line2);padding:2px 7px;font:500 10px Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nav{display:flex;gap:26px;font:500 14px Inter,sans-serif;color:var(--soft)}
+.nav a:hover{color:var(--text)}
+.head-r{display:flex;align-items:center;gap:22px;font:500 13px Inter,sans-serif;color:var(--soft)}
+.head-r a:hover{color:var(--text)}
 
-    .logo span.k   { color: var(--yellow) !important; }
-    .logo .logo-name { letter-spacing: 1px; }
-    .logo span.rest { letter-spacing: 1px; }
-    .logo span.dot  { color: var(--red); font-size: 1.4rem; }
-    .header-right { display: flex; align-items: center; gap: 6px; }
-    .cat-tabs { display: flex; gap: 4px; margin: 0 16px; }
-    .cat-tab {
-      background: transparent; border: 2px solid rgba(255,255,255,0.15);
-      color: #aab; font-family: 'Nunito', sans-serif; font-weight: 800;
-      font-size: 0.8rem; padding: 6px 14px; border-radius: 8px;
-      cursor: pointer; transition: all 0.2s; white-space: nowrap;
-    }
-    .cat-tab:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
-    .cat-tab.active-cat { background: rgba(255,255,255,0.12); border-color: var(--yellow); color: var(--yellow); }
-    .tag-btn.active-lang { background: var(--dark); border-color: var(--dark); color: #fff; }
-    @media (max-width: 900px) { nav { display: none; } }
-    .platform-btn { display: inline-flex; align-items: center; padding: 6px 11px; border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.73rem; text-decoration: none; border: none; cursor: pointer; transition: filter 0.18s, transform 0.15s; white-space: nowrap; }
-    .platform-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
-    .btn-vinted-h  { background: #09b1ba; color: #fff; }
-    .btn-ebay-h    { background: var(--yellow); color: var(--dark); }
-    .btn-lbc-h     { background: #f56b2a; color: #fff; }
-    .btn-contact-h { background: transparent; color: var(--yellow); border: 2px solid var(--yellow) !important; font-size: 0.73rem; padding: 4px 10px; border-radius: 8px; }
-    nav { display: flex; gap: 6px; margin-left: 8px; }
-    nav button { background: transparent; border: 2px solid transparent; color: #ccc; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.85rem; padding: 5px 13px; border-radius: 30px; cursor: pointer; transition: all 0.2s; }
-    nav button:hover, nav button.active { color: var(--white); border-color: var(--yellow); background: rgba(245,197,24,0.12); }
-    nav button.active { color: var(--yellow); }
+/* buttons */
+.btn{display:block;font:600 13px Inter,sans-serif;padding:11px 8px;text-align:center;border:1px solid var(--line2);color:var(--text);background:transparent;cursor:pointer;border-radius:2px;transition:background .15s,color .15s,border-color .15s}
+.btn.gold{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.btn.gold:hover{background:#d4b67c;border-color:#d4b67c}
+.btn.off{color:#55555e;border-style:dashed;cursor:not-allowed}
+.plats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.plats>a.btn:nth-child(1):hover{background:#09b1ba;border-color:#09b1ba;color:#0f1013}
+.plats>a.btn:nth-child(2):hover{background:#f56b2a;border-color:#f56b2a;color:#0f1013}
+.plats>a.btn:nth-child(3):hover{background:#f5c518;border-color:#f5c518;color:#0f1013}
+.plats>.btn.pay:hover{background:#5468d4;border-color:#5468d4;color:#fff}
 
-    /* ── HERO ── */
-    .hero { background: linear-gradient(135deg, var(--dark) 0%, #16213e 60%, #0f3460 100%); padding: 28px 24px 22px; text-align: center; position: relative; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(29,111,232,0.18) 0%, transparent 70%), radial-gradient(ellipse at 20% 80%, rgba(245,197,24,0.12) 0%, transparent 60%); pointer-events: none; }
-    .trust-bar { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 30px; padding: 6px 16px; margin-bottom: 8px; font-size: 0.76rem; color: #e0eaff; backdrop-filter: blur(4px); }
-    .trust-item strong { color: var(--yellow); }
-    .trust-sep { color: rgba(255,255,255,0.25); font-size: 1rem; }
-    .hero-badge { display: inline-block; background: var(--yellow); color: var(--dark); font-weight: 900; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; padding: 4px 14px; border-radius: 30px; margin-bottom: 10px; }
-    .hero h1 { font-family: 'Bangers', cursive; font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--white); letter-spacing: 3px; line-height: 1.05; margin-bottom: 8px; margin-top: 18px; }
-    .hero h1 em { font-style: normal; color: var(--yellow); }
-    .hero p { display: none; }
-    .hero-stats { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 10px; }
-    .clickable-stat { cursor: pointer; transition: transform 0.15s, opacity 0.15s; }
-    .clickable-stat:hover { transform: translateY(-3px); opacity: 0.85; }
-    .clickable-stat:hover .num { text-decoration: underline; text-underline-offset: 3px; }
-    .stat { text-align: center; }
-    .stat .num { font-family: 'Bangers', cursive; font-size: 1.5rem; color: var(--yellow); letter-spacing: 1px; display: block; }
-    .stat .label { font-size: 0.78rem; color: #7a90a8; text-transform: uppercase; letter-spacing: 1px; }
+/* hero */
+.hero{border-bottom:1px solid #1f2128}
+.hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:64px;align-items:center;padding:72px 0}
+.hero h1{font:400 56px/1.08 Fraunces,serif;margin:0 0 22px}
+.hero h1 span{color:var(--gold)}
+.hero p{font:400 17px/1.7 Inter,sans-serif;color:var(--soft);margin:0 0 34px;max-width:520px}
+.stats{display:flex;gap:44px}
+.stats b{display:block;font:600 32px Fraunces,serif}
+.panel{border:1px solid var(--line);background:var(--bg2);padding:30px;display:flex;flex-direction:column;gap:18px}
+.panel div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.panel div:last-child{border:0;padding:0}
+.panel strong{font:600 22px Fraunces,serif}
+.panel span.v{font:500 14px Inter,sans-serif;color:#d8d4ca;text-align:right}
 
-    /* ── SEARCH ── */
-    .search-wrap { background: var(--dark); padding: 16px 24px; display: flex; justify-content: center; }
-    .search-box { display: flex; align-items: center; background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.12); border-radius: 50px; padding: 0 20px; gap: 10px; width: 100%; max-width: 380px; transition: border-color 0.2s; }
-    .search-box:focus-within { border-color: var(--yellow); }
-    .search-icon { font-size: 1.1rem; color: #7a90a8; flex-shrink: 0; }
-    .search-box input { flex: 1; background: transparent; border: none; outline: none; color: #fff; font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 600; padding: 10px 0; }
-    .search-box input::placeholder { color: #7a90a8; }
-    .search-clear { background: none; border: none; color: #7a90a8; font-size: 1.1rem; cursor: pointer; padding: 0; display: none; line-height: 1; }
-    .search-clear.visible { display: block; }
-    .search-clear:hover { color: var(--yellow); }
-    .search-count { font-size: 0.8rem; color: #7a90a8; white-space: nowrap; font-weight: 600; }
+/* filters */
+.tools{padding:36px 0 12px;display:flex;flex-direction:column;gap:18px}
+.search{max-width:420px;width:100%;background:var(--card);border:1px solid var(--line);color:var(--text);font:400 14px Inter,sans-serif;padding:12px 16px;border-radius:2px}
+.search::placeholder{color:#6d6d78}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.last{padding-bottom:18px;border-bottom:1px solid #1f2128}
+.chip{border:1px solid #2c2e36;background:transparent;color:var(--soft);font:500 13px Inter,sans-serif;padding:8px 15px;border-radius:2px;cursor:pointer;white-space:nowrap}
+.chip:hover{color:var(--text)}
+.chip.on{border-color:var(--gold);color:var(--gold)}
+.sep{width:22px}
+.sort{margin-left:auto;background:var(--card);border:1px solid var(--line);color:var(--text);font:500 13px Inter,sans-serif;padding:9px 12px;border-radius:2px}
 
-    /* ── FILTERS ── */
-    .controls { background: var(--gray); padding: 16px 24px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border-bottom: 2px solid #e8ecf0; }
-    .filter-label { font-weight: 700; font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-right: 4px; }
-    .tag-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; border-radius: 30px; border: 2px solid #dde3eb; background: var(--white); font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.18s; color: var(--text); }
-    .tag-btn:hover { border-color: var(--blue); color: var(--blue); }
-    .tag-btn.active-poke { background: var(--blue); border-color: var(--blue); color: var(--white); }
-    .tag-btn.active-op   { background: var(--red);  border-color: var(--red);  color: var(--white); }
-    .tag-btn.active-all  { background: var(--dark); border-color: var(--dark); color: var(--white); }
-    .tag-btn.active-lol  { background: var(--lol);  border-color: var(--lol);  color: var(--white); }
-    .tag-btn.active-db   { background: var(--db);   border-color: var(--db);   color: var(--white); }
-    .dot-poke { width: 10px; height: 10px; border-radius: 50%; background: var(--blue); flex-shrink:0; }
-    .dot-op   { width: 10px; height: 10px; border-radius: 50%; background: var(--red);  flex-shrink:0; }
-    .dot-lol  { width: 10px; height: 10px; border-radius: 50%; background: var(--lol);  flex-shrink:0; }
-    .dot-db   { width: 10px; height: 10px; border-radius: 50%; background: var(--db);   flex-shrink:0; }
-    .sort-select { margin-left: auto; padding: 7px 12px; border-radius: 30px; border: 2px solid #dde3eb; background: var(--white); font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.82rem; color: var(--text); cursor: pointer; outline: none; transition: border-color 0.18s; }
-    .notif-btn { background: #0088cc; color: #fff; border: none; border-radius: 30px; padding: 7px 14px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.82rem; cursor: pointer; text-decoration: none; white-space: nowrap; transition: background 0.18s, transform 0.15s; flex-shrink: 0; }
-    .notif-btn:hover { background: #006fa3; transform: translateY(-1px); }
+/* sections */
+.sec{padding:44px 0 30px}
+.sec.alt{background:var(--bg2)}
+.sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:14px;gap:14px}
+.sec-h h2{font:400 30px Fraunces,serif;margin:0}
+.sec-h .btn{padding:9px 18px;white-space:nowrap}
+.rowwrap{position:relative}
+.row-scroll{display:flex;gap:20px;overflow-x:auto;padding-bottom:14px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.row-scroll .card{flex:0 0 264px;scroll-snap-align:start}
+.arrow{position:absolute;top:130px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line2);background:rgba(15,16,19,.92);color:var(--text);font-size:20px;line-height:1;cursor:pointer;z-index:2}
+.arrow:hover{border-color:var(--gold);color:var(--gold)}
+.arrow.l{left:-16px}.arrow.r{right:-16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
 
-    /* ── GRADE FILTERS ── */
-    .grade-filters { background: var(--gray); padding: 10px 24px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; border-bottom: 1px solid #e8ecf0; }
-    .grade-btn { padding: 5px 14px; border-radius: 30px; border: 2px solid #dde3eb; background: var(--white); font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.82rem; cursor: pointer; transition: all 0.18s; color: var(--text); }
-    .grade-btn:hover { border-color: var(--dark); color: var(--dark); }
-    .grade-btn.active { background: var(--dark); border-color: var(--dark); color: #fff; }
-    .grade-btn.gold  { background: linear-gradient(135deg, #f5c518, #e0a800); border-color: #e0a800; color: var(--dark); }
-    .grade-btn.gold:hover, .grade-btn.gold.active { background: linear-gradient(135deg, #e0a800, #c8960a); border-color: #c8960a; color: #fff; }
-    .grade-btn.black { background: var(--dark); border-color: var(--dark); color: #fff; }
-    .grade-btn.black:hover, .grade-btn.black.active { background: #000; border-color: #000; }
-    .grade-separator { width: 2px; height: 28px; background: #dde3eb; margin: 0 16px; flex-shrink: 0; border-radius: 2px; }
-    .grader-btn { font-size: 0.78rem; }
-    .all-grader-btn:hover, .all-grader-btn.active-grader { background: var(--dark); border-color: var(--dark); color: #fff; }
-    .psa-btn:hover,        .psa-btn.active-grader        { background: var(--psa); border-color: var(--psa); color: #fff; }
-    .bgs-btn:hover,        .bgs-btn.active-grader        { background: linear-gradient(135deg,#c8c8c8,#909090); border-color: #a8a9ad; color: #fff; }
-    .pca-btn:hover,        .pca-btn.active-grader        { background: #111; border-color: #111; color: #fff; }
-    .ccc-btn:hover,        .ccc-btn.active-grader        { background: var(--ccc); border-color: var(--ccc); color: #fff; }
-    .collectura-btn:hover, .collectura-btn.active-grader { background: #4ade80; border-color: #4ade80; color: #14532d; }
+/* card */
+.card{background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;cursor:pointer;transition:border-color .15s,transform .15s}
+.card:hover{border-color:var(--line2);transform:translateY(-3px)}
+.card.sold{opacity:.6}
+.pic{position:relative;height:290px;background:linear-gradient(160deg,#1d1f27,#121318);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.pic img{max-height:250px;max-width:84%;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.5))}
+.frame{width:140px;height:196px;border:1px solid var(--line2);background:#1a1c23}
+.gbadge{position:absolute;top:14px;right:14px;font:500 11px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:3px 8px;background:rgba(15,16,19,.6)}
+.gbadge.gold{background:var(--gold);color:var(--bg)}
+.gbadge.black{background:#000;color:var(--text);border-color:#555}
+.ptag{position:absolute;bottom:14px;left:14px;font:500 11px Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--text);background:rgba(15,16,19,.7);padding:3px 8px}
+.cbody{padding:18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.cname{font:600 18px Fraunces,serif;line-height:1.25}
+.cset{font:400 13px Inter,sans-serif;color:var(--muted)}
+.cprice{font:600 21px Inter,sans-serif;margin:8px 0 10px}
+.cbody .plats,.cbody .btn.sold-b{margin-top:auto}
+.sold-b{color:var(--muted);cursor:default}
 
-    /* ── TOP BAR on cards (couleur de la licence) ── */
-    .grader-bar { height: 4px; width: 100%; flex-shrink: 0; display: block; background: #1b335f; }
-    
-    
-    
-    
+/* empty */
+.empty{border:1px dashed var(--line2);padding:56px 24px;text-align:center;color:var(--soft)}
+.empty h3{font:400 26px Fraunces,serif;margin:0 0 10px;color:var(--text)}
+.empty p{margin:0 0 22px;font-size:15px;line-height:1.7}
 
-    /* ── COUP DE CŒUR section ── */
-    .fav-section { background: var(--yellow-light); border-top: 2px solid rgba(245,197,24,0.35); border-bottom: 2px solid rgba(245,197,24,0.35); padding-bottom: 8px; }
-    .fav-title::after { background: linear-gradient(90deg, var(--yellow), transparent) !important; }
-    .fav-badge { position: absolute; bottom: 10px; left: 10px; z-index: 3; background: #fff; font-size: 0.75rem; padding: 3px 6px; border-radius: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.18); }
-    .fav-grid { display: flex !important; overflow-x: auto; gap: 22px; padding: 18px 24px 22px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
-    .fav-grid .card { min-width: 240px; max-width: 260px; flex-shrink: 0; scroll-snap-align: start; }
-    .new-badge { position: absolute; bottom: 10px; right: 10px; z-index: 3; background: var(--green); color: #fff; font-weight: 900; font-size: 0.62rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+/* community / about / footer */
+.comm{border-top:1px solid #1f2128;border-bottom:1px solid #1f2128;background:var(--bg2)}
+.comm-g{display:grid;grid-template-columns:1fr 1fr 1fr}
+.comm-g>div{padding:52px 32px}
+.comm-g>div:first-child{padding-left:0}
+.comm-g>div:last-child{padding-right:0}
+.comm-g>div+div{border-left:1px solid #1f2128}
+.comm h3{font:400 26px/1.2 Fraunces,serif;margin:10px 0}
+.comm p{font:400 14px/1.7 Inter,sans-serif;color:var(--soft);margin:0 0 22px}
+.comm .btn{display:inline-block;padding:12px 28px}
+.about{padding:64px 0;text-align:center;border-bottom:1px solid #1f2128}
+.about h2{font:400 32px Fraunces,serif;margin:0 0 18px}
+.about p{font:400 15px/1.8 Inter,sans-serif;color:var(--soft);max-width:620px;margin:0 auto 26px}
+.about .plats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.about .btn{padding:11px 24px}
+footer{padding:30px 0;font:400 13px/1.8 Inter,sans-serif;color:var(--muted);text-align:center}
+footer b{font:600 17px Fraunces,serif;color:var(--text)}
+footer b span{color:var(--gold)}
 
-    /* ── GRID ── */
-    .section-title { font-family: 'Bangers', cursive; font-size: 1.8rem; letter-spacing: 2px; color: var(--dark); padding: 36px 24px 4px; display: flex; align-items: center; gap: 12px; }
-    .section-title::after { content: ''; flex: 1; height: 3px; border-radius: 3px; background: linear-gradient(90deg, var(--yellow), transparent); }
-    .section-header { display: flex; align-items: center; justify-content: space-between; padding: 32px 24px 4px; gap: 12px; }
-    .section-header .section-title { padding: 0; flex: 1; }
-    .see-all-btn { flex-shrink: 0; background: var(--dark); color: #fff; border: none; border-radius: 30px; padding: 7px 16px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.8rem; cursor: pointer; white-space: nowrap; transition: background 0.18s, transform 0.15s; }
-    .see-all-btn:hover { background: var(--blue); transform: translateY(-1px); }
-    .scroll-grid { display: flex; overflow-x: auto; gap: 18px; padding: 16px 24px 24px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scroll-behavior: smooth; }
-    .scroll-grid::-webkit-scrollbar { height: 4px; }
-    .scroll-grid::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 2px; }
-    .scroll-grid::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
-    .scroll-grid .card { min-width: 240px; max-width: 260px; flex-shrink: 0; scroll-snap-align: start; animation: none; }
-    .carousel-wrap { position: relative; }
-    .carousel-arrow {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      z-index: 10; background: rgba(255,255,255,0.85);
-      border: none; border-radius: 50%; width: 38px; height: 38px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 1.1rem; color: var(--dark);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-      transition: background 0.18s, transform 0.15s, opacity 0.2s;
-      opacity: 0.7;
-    }
-    .carousel-arrow:hover { background: #fff; opacity: 1; transform: translateY(-50%) scale(1.08); }
-    .carousel-arrow.left  { left: 4px; }
-    .carousel-arrow.right { right: 4px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; padding: 20px 24px 48px; max-width: 1200px; margin: 0 auto; }
+/* modals */
+.ov{position:fixed;inset:0;background:rgba(5,5,8,.82);z-index:100;display:none;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.ov.open{display:flex}
+.box{background:var(--card);border:1px solid var(--line2);width:100%;position:relative}
+.x{position:absolute;top:10px;right:14px;background:none;border:0;color:var(--soft);font-size:28px;line-height:1;cursor:pointer;z-index:3}
+.x:hover{color:var(--text)}
+.mod{max-width:900px;display:grid;grid-template-columns:1fr 1fr}
+.mod-img{background:linear-gradient(160deg,#1d1f27,#121318);padding:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;min-height:420px}
+.mod-img img.main{max-width:100%;max-height:340px;object-fit:contain}
+.thumbs{display:flex;gap:10px}
+.thumbs img{width:56px;height:56px;object-fit:contain;background:#0f1013;border:1px solid var(--line);padding:3px;cursor:pointer}
+.thumbs img.on{border-color:var(--gold)}
+.mod-info{padding:34px 30px;display:flex;flex-direction:column;gap:6px}
+.mod-info h3{font:400 32px/1.1 Fraunces,serif;margin:8px 0 4px}
+.mrow{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line);font:400 14px Inter,sans-serif}
+.mrow span:first-child{color:var(--muted)}
+.mprice{font:600 32px Inter,sans-serif;margin:16px 0 14px}
+.pay{max-width:460px;padding:36px}
+.pay h3{font:400 28px Fraunces,serif;margin:0 0 6px}
+.pay p{font:400 14px/1.6 Inter,sans-serif;color:var(--soft);margin:0 0 22px}
+.opt{border:1px solid var(--line);padding:14px 16px;margin-bottom:22px}
+.opt b{display:block;font:600 14px Inter,sans-serif}
+.opt span{font:400 13px Inter,sans-serif;color:var(--muted)}
 
-    /* ── CARD ── */
-    .card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; transition: transform 0.22s, box-shadow 0.22s; display: flex; flex-direction: column; position: relative; border: 2px solid transparent; cursor: pointer; }
-    .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
-    .card-img-wrap { background: var(--gray); display: flex; align-items: center; justify-content: center; padding: 20px; min-height: 200px; position: relative; }
-    .card-img-wrap img { max-height: 180px; max-width: 100%; object-fit: contain; border-radius: 10px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.18)); transition: transform 0.25s; }
-    .card:hover .card-img-wrap img { transform: scale(1.05); }
-    .placeholder-art { width: 130px; height: 180px; background: linear-gradient(135deg, #dde3eb, #c8d2de); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #aab; font-size: 2.5rem; }
-    .placeholder-art span { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-
-    /* GRADE BADGE */
-    .grade-badge { position: absolute; top: 12px; right: 12px; padding: 4px 10px; border-radius: 8px; font-weight: 900; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; }
-    .grade-psa        { background: var(--psa); color: #fff; }
-    .grade-bgs        { background: linear-gradient(135deg,#c8c8c8,#909090); color: #fff; }
-    .grade-pca        { background: #111; color: #fff; border: 1px solid #444; }
-    .grade-ccc        { background: var(--ccc); color: #fff; }
-    .grade-collectura { background: #4ade80; color: #14532d; }
-    .grade-gold  { background: linear-gradient(135deg,#f5c518,#e0a800); color: var(--dark); font-weight: 900; font-size: 0.62rem; padding: 2px 5px; letter-spacing: 0.5px; }
-    .grade-black { background: #111; color: #fff; border: 1px solid #444; font-size: 0.62rem; padding: 2px 5px; letter-spacing: 0.5px; }
-
-    /* UNIV TAG */
-    .univ-tag { position: absolute; top: 12px; left: 12px; padding: 3px 10px; border-radius: 8px; font-weight: 800; font-size: 0.7rem; letter-spacing: 1px; }
-    .univ-poke { background: var(--blue-light); color: var(--blue); }
-    .univ-op   { background: #fdeaea;           color: var(--red); }
-    .univ-lol  { background: var(--lol-light);  color: var(--lol); }
-    .univ-db   { background: var(--db-light);   color: var(--db); }
-
-    .card-body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-    .card-type-tag { display: inline-block; background: var(--blue-light); color: var(--blue); font-size: 0.72rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-bottom: 4px; }
-    .card-name { font-weight: 900; font-size: 1.05rem; color: var(--dark); line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .meta-pill { background: var(--gray); border-radius: 20px; padding: 3px 10px; font-size: 0.75rem; font-weight: 700; color: var(--muted); }
-
-    /* PRIX — police claire, 1 ≠ 7 */
-    .card-price { font-family: 'Nunito', sans-serif; font-weight: 900; font-variant-numeric: tabular-nums; font-size: 1.55rem; color: var(--dark); margin-top: 2px; letter-spacing: -0.5px; }
-    .card-price .currency { font-size: 0.9rem; color: var(--muted); margin-right: 2px; font-weight: 900; }
-
-    .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 4px; }
-    .btn { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 6px; border-radius: 10px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.78rem; text-decoration: none; border: none; cursor: pointer; transition: filter 0.18s, transform 0.15s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
-    .btn:active { transform: translateY(0); }
-    .btn-vinted    { background: #09b1ba; color: #fff; }
-    .btn-ebay      { background: var(--yellow); color: var(--dark); }
-    .btn-leboncoin { background: #f56b2a; color: #fff; }
-    .btn-contact   { background: var(--dark); color: #fff; }
-    .btn-disabled  { background: #eef0f3; color: #bbb; cursor: not-allowed; border: 2px dashed #dde3eb; font-style: italic; font-size: 0.75rem; }
-    .btn-disabled:hover { filter: none; transform: none; }
-
-    /* ── SOLD ── */
-    .card.sold-card { opacity: 0.75; filter: grayscale(40%); }
-    .sold-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 2; }
-    .sold-stamp { font-family: 'Bangers', cursive; font-size: 2.2rem; letter-spacing: 4px; color: #fff; background: var(--red); padding: 6px 20px; border-radius: 8px; transform: rotate(-15deg); box-shadow: 0 4px 16px rgba(0,0,0,0.4); border: 3px solid #fff; }
-    .sold-actions-label { grid-column: span 2; text-align: center; font-size: 0.85rem; font-weight: 700; color: var(--muted); padding: 8px; background: var(--gray); border-radius: 10px; }
-    .sold-title { color: var(--muted); }
-    .sold-title::after { background: linear-gradient(90deg, #ccc, transparent); }
-
-    /* ── EMPTY ── */
-    .empty { text-align: center; padding: 60px 24px; color: var(--muted); grid-column: 1 / -1; }
-    .empty .icon { font-size: 3rem; margin-bottom: 12px; }
-    .empty p { font-size: 1.05rem; }
-
-    /* ── MODAL ── */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 500; display: flex; align-items: center; justify-content: center; padding: 16px; backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity 0.22s; }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .modal { background: var(--white); border-radius: 24px; max-width: 860px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 80px rgba(0,0,0,0.4); display: grid; grid-template-columns: 1fr 1fr; position: relative; transform: translateY(20px); transition: transform 0.22s; }
-    .modal-overlay.open .modal { transform: translateY(0); }
-    .modal-close { position: absolute; top: 14px; right: 14px; background: var(--gray); border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.15s; color: var(--text); }
-    .modal-close:hover { background: var(--red); color: #fff; }
-    .modal-images { background: var(--gray); border-radius: 24px 0 0 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 28px 20px; gap: 16px; min-height: 380px; position: relative; }
-    .modal-main-img { width: 100%; max-height: 280px; object-fit: contain; border-radius: 12px; filter: drop-shadow(0 6px 20px rgba(0,0,0,0.2)); }
-    .modal-thumbs { display: flex; gap: 10px; }
-    .modal-thumb { width: 60px; height: 60px; object-fit: contain; border-radius: 8px; cursor: pointer; border: 3px solid transparent; background: #fff; padding: 4px; transition: border-color 0.15s; }
-    .modal-thumb.active { border-color: var(--yellow); }
-    .modal-thumb:hover  { border-color: var(--blue); }
-    .modal-no-img { font-size: 5rem; opacity: 0.3; }
-    .modal-info { padding: 32px 28px 28px; display: flex; flex-direction: column; gap: 12px; }
-    .modal-univ-tag { display: inline-block; padding: 3px 12px; border-radius: 20px; font-weight: 800; font-size: 0.72rem; letter-spacing: 1px; margin-bottom: 2px; }
-    .modal-title { font-family: 'Bangers', cursive; font-size: 2rem; letter-spacing: 2px; color: var(--dark); line-height: 1.1; }
-    .modal-divider { height: 2px; background: var(--gray); border-radius: 2px; }
-    .modal-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.88rem; }
-    .modal-row .label { color: var(--muted); font-weight: 700; }
-    .modal-row .val   { font-weight: 900; color: var(--dark); }
-    .modal-price { font-family: 'Nunito', sans-serif; font-weight: 900; font-variant-numeric: tabular-nums; font-size: 2.4rem; color: var(--dark); letter-spacing: -0.5px; line-height: 1; }
-    .modal-price .currency { font-size: 1.1rem; color: var(--muted); margin-right: 2px; font-weight: 900; }
-    .modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
-    .modal-sold-label { text-align: center; background: var(--gray); border-radius: 12px; padding: 12px; font-weight: 700; color: var(--muted); grid-column: span 2; }
-    .btn-share { width: 100%; margin-top: 8px; background: var(--gray); border: 2px solid #dde3eb; border-radius: 10px; padding: 9px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.82rem; color: var(--dark); cursor: pointer; transition: background 0.18s, border-color 0.18s; }
-    .btn-share:hover { background: #e8f1fd; border-color: var(--blue); color: var(--blue); }
-    .btn-share.copied { background: var(--green); border-color: var(--green); color: #fff; }
-    @media (max-width: 640px) { .modal { grid-template-columns: 1fr; max-height: 95vh; } .modal-images { border-radius: 24px 24px 0 0; min-height: 240px; } .modal-info { padding: 20px; } .modal-title { font-size: 1.6rem; } }
-
-    /* ── FOOTER ── */
-    footer { background: var(--dark); color: #7a90a8; text-align: center; padding: 28px 24px; font-size: 0.85rem; line-height: 1.8; }
-    footer strong { color: var(--yellow); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      /* HEADER MOBILE — 2 lignes */
-      header { height: auto; flex-wrap: wrap; padding: 8px 14px 0; gap: 0; }
-      .logo { font-size: 1.3rem; flex: 1; }
-      .header-right { display: flex; align-items: center; gap: 4px; }
-      .platform-btn { font-size: 0.6rem; padding: 4px 7px; }
-      .btn-contact-h { display: none; }
-      nav { display: none; }
-      .cat-tabs { order: 3; width: 100%; justify-content: center; margin: 6px 0 8px; gap: 6px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px; }
-      .cat-tab { font-size: 0.78rem; padding: 6px 14px; }
-
-      /* HERO */
-      .hero { padding: 20px 14px 18px; }
-      .hero h1 { font-size: 2rem; margin-top: 14px; margin-bottom: 6px; }
-      .trust-bar { font-size: 0.68rem; gap: 5px; padding: 5px 10px; }
-      .trust-sep { display: none; }
-      .trust-item { text-align: center; }
-      .hero-stats { gap: 12px; margin-top: 10px; }
-      .stat .num { font-size: 1.3rem; }
-      .stat .label { font-size: 0.6rem; letter-spacing: 0.5px; }
-      .hero-badge { font-size: 0.65rem; padding: 3px 10px; margin-bottom: 6px; }
-
-      /* SEARCH */
-      .search-wrap { padding: 10px 12px; }
-
-      /* CONTROLS — scroll horizontal */
-      .controls { padding: 10px 12px; gap: 6px; overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; border-bottom: 1px solid #e8ecf0; }
-      .controls::-webkit-scrollbar { display: none; }
-      .tag-btn { font-size: 0.72rem; padding: 5px 10px; white-space: nowrap; }
-      .sort-select { margin-left: 0; font-size: 0.72rem; padding: 5px 8px; white-space: nowrap; flex-shrink: 0; }
-      .filter-label { display: none; }
-
-      /* GRADE FILTERS */
-      .grade-filters { padding: 8px 12px; gap: 5px; overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
-      .grade-filters::-webkit-scrollbar { display: none; }
-      .grade-btn { font-size: 0.72rem; padding: 5px 10px; white-space: nowrap; }
-      .grade-separator { display: none; }
-
-      /* GRID */
-      .grid { grid-template-columns: repeat(2, 1fr); padding: 10px 10px 32px; gap: 10px; }
-      .scroll-grid { padding: 10px 10px 18px; gap: 12px; }
-      .scroll-grid .card { min-width: 200px; max-width: 220px; }
-      .card-img-wrap { min-height: 140px; padding: 12px; }
-      .card-img-wrap img { max-height: 130px; }
-      .card-name { font-size: 0.85rem; }
-      .card-price { font-size: 1.15rem; }
-      .card-actions { gap: 4px; }
-      .btn { font-size: 0.65rem; padding: 6px 3px; }
-      .section-title { font-size: 1.3rem; padding: 20px 12px 2px; }
-      .section-header { padding: 20px 12px 2px; }
-      .see-all-btn { font-size: 0.72rem; padding: 5px 10px; }
-
-      /* MODAL */
-      .modal { grid-template-columns: 1fr; max-height: 95vh; }
-      .modal-images { border-radius: 24px 24px 0 0; min-height: 200px; padding: 20px; }
-      .modal-info { padding: 16px; gap: 8px; }
-      .modal-title { font-size: 1.5rem; }
-      .modal-price { font-size: 1.8rem; }
-    }
-
-    @media (max-width: 380px) {
-      .logo { font-size: 1.1rem; }
-      .hero h1 { font-size: 1.7rem; }
-      .grid { grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px 8px 28px; }
-      .btn { font-size: 0.58rem; }
-      .scroll-grid .card { min-width: 175px; }
-    }
-
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .card { animation: fadeUp 0.4s ease both; }
-    .card:nth-child(2) { animation-delay: 0.06s; }
-    .card:nth-child(3) { animation-delay: 0.12s; }
-    .card:nth-child(4) { animation-delay: 0.18s; }
-    .card:nth-child(5) { animation-delay: 0.24s; }
-    .card:nth-child(6) { animation-delay: 0.30s; }
-  </style>
+/* mobile */
+@media(max-width:900px){
+.wrap{padding:0 18px}
+.nav,.head-r .lk{display:none}
+.head{height:62px}
+.logo{font-size:22px}
+.logo-img{width:34px;height:34px}
+.hero-grid{grid-template-columns:1fr;gap:30px;padding:40px 0}
+.hero h1{font-size:40px}
+.hero p{font-size:15px;margin-bottom:26px}
+.stats{gap:28px}
+.stats b{font-size:26px}
+.panel{padding:22px}
+.tools{padding-top:26px}
+.row:not(.last):not(.wrapit),.row.last{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.row::-webkit-scrollbar{display:none}
+.sort{margin-left:0}
+.sec{padding:32px 0 20px}
+.sec-h h2{font-size:23px}
+.row-scroll .card{flex-basis:218px}
+.arrow{display:none}
+.grid{grid-template-columns:repeat(2,1fr);gap:12px}
+.pic{height:210px}
+.pic img{max-height:176px}
+.frame{width:106px;height:148px}
+.cbody{padding:12px}
+.cname{font-size:15px}
+.cprice{font-size:18px;margin:6px 0 8px}
+.btn{font-size:12px;padding:10px 4px}
+.comm-g{grid-template-columns:1fr}
+.comm-g>div,.comm-g>div+div{padding:34px 0;border-left:0}
+.comm-g>div+div{border-top:1px solid #1f2128}
+.mod{grid-template-columns:1fr}
+.mod-img{min-height:260px;padding:22px}
+.mod-img img.main{max-height:240px}
+.mod-info{padding:22px 20px}
+.pay{padding:28px 22px}
+}
+</style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
-  <a href="javascript:location.reload()" class="logo">
-    <img class="logo-img" src="data:image/png;base64,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" alt="KardCollect" />
-    <span class="logo-name"><span class="k">K</span>ard</span><span class="dot"> ● </span><span class="rest">Collect</span><span style="font-family:'Nunito',sans-serif;font-size:0.55rem;font-weight:900;background:#e8271d;color:#fff;padding:2px 6px;border-radius:4px;letter-spacing:1px;margin-left:6px;vertical-align:middle;position:relative;top:-2px;">BETA</span>
-  </a>
-  <div class="cat-tabs">
-    <button class="cat-tab active-cat" id="cat-graded" onclick="switchView('graded')">🃏 Cartes Gradées</button>
-    <button class="cat-tab" id="cat-sealed" onclick="switchView('sealed')">📦 Scellées</button>
-    <button class="cat-tab" id="cat-loose"  onclick="switchView('loose')">🎴 Loose</button>
+<div class="wrap head">
+  <a href="#top" class="logo" aria-label="Kevin-Boutique"><img class="logo-img" src="data:image/png;base64,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" alt="" width="40" height="40"><span><b>K</b>evin-Boutique</span><span class="beta">Bêta</span></a>
+  <nav class="nav">
+    <a href="#" data-g="univ" data-v="poke" data-scroll="1">Pokémon</a>
+    <a href="#" data-g="univ" data-v="op" data-scroll="1">One Piece</a>
+    <a href="#" data-g="univ" data-v="lol" data-scroll="1">Riftbound</a>
+    <a href="#" data-g="univ" data-v="db" data-scroll="1">Dragon Ball</a>
+  </nav>
+  <div class="head-r">
+    <a class="lk" href="https://www.vinted.fr/member/87640273" target="_blank" rel="noopener">Vinted</a>
+    <a class="lk" href="https://www.leboncoin.fr/profile/21c66d3e-759e-40fd-a008-a85dad801cb3" target="_blank" rel="noopener">Leboncoin</a>
+    <a class="lk" href="https://www.ebay.fr/usr/kardcollect" target="_blank" rel="noopener">eBay</a>
   </div>
-  <div class="header-right">
-    <a class="platform-btn btn-vinted-h"  href="https://www.vinted.fr/member/87640273" target="_blank" rel="noopener">Vinted</a>
-    <a class="platform-btn btn-lbc-h"     href="https://www.leboncoin.fr/profile/21c66d3e-759e-40fd-a008-a85dad801cb3" target="_blank" rel="noopener">LeBonCoin</a>
-    <button class="platform-btn btn-contact-h" onclick="document.getElementById('contact-modal').classList.add('open')">💬 Contact & Notif</button>
-    <nav>
-      <button onclick="filterCards('poke', this)">Pokémon</button>
-      <button onclick="filterCards('op', this)">One Piece</button>
-      <button onclick="filterCards('lol', this)">League of Legends Riftbound</button>
-  <button onclick="filterCards('db', this)">Dragon Ball Z</button>
-    </nav>
-  </div>
+</div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-badge">✦ Cartes Gradées Certifiées ✦</div>
-  <div class="trust-bar">
-    <span class="trust-item">⭐⭐⭐⭐⭐ <strong>73 avis 5/5 sur Vinted</strong></span>
-    <span class="trust-sep">·</span>
-    <span class="trust-item">✅ Vendeur vérifié</span>
-    <span class="trust-sep">·</span>
-    <span class="trust-item">🏆 <strong id="trust-sold">64</strong> ventes réalisées</span>
-    <span class="trust-sep">·</span>
-    <span class="trust-item">📦 Envoi soigné en boîte rigide · 🎥 Préparation filmée</span>
+<section class="hero" id="top">
+<div class="wrap hero-grid">
+  <div>
+    <div class="lbl" style="color:var(--gold);margin-bottom:20px">Cartes gradées certifiées</div>
+    <h1>Kevin-<span>Boutique</span></h1>
+    <p>Cartes gradées : Pokémon, One Piece, Riftbound et Dragon Ball. Qualité et authenticité garanties. Chaque commande est préparée avec soin et filmée.</p>
+    <div class="stats">
+      <a href="#catalogue"><b id="statN">0</b><span class="lbl">Cartes gradées</span></a>
+      <a href="#vendus"><b id="statSold" style="color:var(--green)">0</b><span class="lbl">Déjà vendus</span></a>
+    </div>
   </div>
-  <h1><span style="color:var(--yellow)">K</span>ard<br/><em>Collect</em></h1>
-  <p>🇫🇷 Cartes <strong style="color:var(--yellow)">françaises</strong> gradées <strong style="color:var(--yellow)">CCC</strong> uniquement — qualité et authenticité garanties. Chaque commande soigneusement préparée et filmée.</p>
-  <div class="hero-stats">
-    <div class="stat clickable-stat" onclick="switchView('graded')"><span class="num" id="stat-graded">0</span><span class="label">🃏 Cartes Gradées</span></div>
-    <div class="stat clickable-stat" onclick="switchView('sealed')"><span class="num" id="stat-sealed">0</span><span class="label">📦 Scellées</span></div>
-    <div class="stat clickable-stat" onclick="switchView('loose')"><span class="num" id="stat-loose">0</span><span class="label">🎴 Loose</span></div>
-    <div class="stat clickable-stat" onclick="goToSold()"><span class="num" id="stat-sold" style="color:var(--green)">0</span><span class="label">🏆 Déjà vendus</span></div>
+  <div class="panel">
+    <div><span class="lbl">Avis Vinted</span><strong>67 × 5 <span style="color:var(--gold)">★</span></strong></div>
+    <div><span class="lbl">Ventes réalisées</span><strong id="trustSold">68</strong></div>
+    <div><span class="lbl">Vendeur</span><span class="v">Vérifié</span></div>
+    <div><span class="lbl">Envoi</span><span class="v">Boîte rigide · préparation filmée</span></div>
   </div>
+</div>
 </section>
 
-<!-- SEARCH -->
-<div class="search-wrap">
-  <div class="search-box">
-    <span class="search-icon">🔍</span>
-    <input type="text" id="search-input" placeholder="Rechercher une carte… ex: Dracaufeu, PSA 10, FR…" autocomplete="off" />
-    <span class="search-count" id="search-count"></span>
-    <button class="search-clear" id="search-clear" title="Effacer">✕</button>
-  </div>
+<section id="catalogue">
+<div class="wrap tools">
+  <input class="search" id="q" type="search" placeholder="Rechercher une carte (ex : Dracaufeu, CCC 10, FR)" autocomplete="off" aria-label="Rechercher une carte">
+  <div class="row" id="rowU"></div>
+  <div class="row last" id="rowN"></div>
 </div>
-
-<!-- UNIVERSE FILTERS -->
-<div class="controls">
-  <span class="filter-label">Univers :</span>
-  <button class="tag-btn active-all" id="btn-all"  onclick="filterCards('all', this)">Tout (0)</button>
-  <button class="tag-btn" id="btn-poke" onclick="filterCards('poke', this)"><span class="dot-poke"></span> Pokémon (0)</button>
-  <button class="tag-btn" id="btn-op"   onclick="filterCards('op', this)"><span class="dot-op"></span> One Piece (0)</button>
-  <button class="tag-btn" id="btn-lol"  onclick="filterCards('lol', this)"><span class="dot-lol"></span> League of Legends Riftbound (0)</button>
-<button class="tag-btn" id="btn-db"   onclick="filterCards('db', this)"><span class="dot-db"></span> Dragon Ball Z (0)</button>
-  <div style="width:1px;height:24px;background:#dde3eb;margin:0 4px;flex-shrink:0;"></div>
-  <span class="filter-label">Langue :</span>
-  <button class="tag-btn lang-btn active-lang" id="lang-all" onclick="filterLang('all',this)">Toutes</button>
-  <button class="tag-btn lang-btn" onclick="filterLang('FR',this)">🇫🇷 FR</button>
-  <button class="tag-btn lang-btn" onclick="filterLang('JP',this)">🇯🇵 JP</button>
-  <button class="tag-btn lang-btn" onclick="filterLang('EN',this)">🇬🇧 EN</button>
-  <button class="tag-btn lang-btn" onclick="filterLang('CN',this)">🇨🇳 CH</button>
-  <select class="sort-select" id="sort-select">
-    <option value="default">Ordre par défaut</option>
-    <option value="asc">Prix croissant ↑</option>
-    <option value="desc">Prix décroissant ↓</option>
-  </select>
-  <a href="https://t.me/+RisBsJjasXhmYjVk" target="_blank" rel="noopener" class="notif-btn" style="display:none;">🔔 Notifications</a>
-</div>
-
-<!-- GRADE FILTERS -->
-<div class="grade-filters">
-  <span class="filter-label">Note CCC :</span>
-  <button class="grade-btn active" onclick="filterGrade('all', this)">Toutes</button>
-  <button class="grade-btn" onclick="filterGrade('9', this)">9</button>
-  <button class="grade-btn" onclick="filterGrade('9.5', this)">9.5</button>
-  <button class="grade-btn" onclick="filterGrade('10', this)">10</button>
-  <button class="grade-btn gold"  onclick="filterGrade('10gold', this)">✨ Gold</button>
-  <button class="grade-btn black" onclick="filterGrade('10black', this)">⚫ Black</button>
-  <div class="grade-separator"></div>
-  <span class="filter-label">Gradeur :</span>
-  <button class="grade-btn grader-btn all-grader-btn active-grader" onclick="filterGrader('all', this)">Tous</button>
-  <button class="grade-btn grader-btn psa-btn"         onclick="filterGrader('PSA', this)">PSA</button>
-  <button class="grade-btn grader-btn ccc-btn"         onclick="filterGrader('CCC', this)">CCC</button>
-  <button class="grade-btn grader-btn pca-btn"         onclick="filterGrader('PCA', this)">PCA</button>
-  <button class="grade-btn grader-btn collectura-btn"  onclick="filterGrader('Collectura', this)">CA</button>
-</div>
-
-<!-- CATALOG -->
-<div id="catalog"></div>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modal-overlay">
-  <div class="modal" id="modal-box">
-    <button class="modal-close" id="modal-close-btn">✕</button>
-    <div class="modal-images" id="modal-images">
-      <img class="modal-main-img" id="modal-main-img" src="" alt="" />
-      <div class="modal-thumbs" id="modal-thumbs"></div>
-    </div>
-    <div class="modal-info">
-      <div id="modal-univ-tag" class="modal-univ-tag"></div>
-      <div class="modal-title" id="modal-title"></div>
-      <div class="modal-divider"></div>
-      <div class="modal-row"><span class="label">Set</span><span class="val" id="modal-set"></span></div>
-      <div class="modal-row"><span class="label">Numéro</span><span class="val" id="modal-number"></span></div>
-      <div class="modal-row"><span class="label">Type</span><span class="val" id="modal-type"></span></div>
-      <div class="modal-row"><span class="label">Langue</span><span class="val" id="modal-lang"></span></div>
-      <div class="modal-row"><span class="label">Gradeur</span><span class="val" id="modal-grade"></span></div>
-      <div class="modal-divider"></div>
-      <div class="modal-price"><span class="currency">€</span><span id="modal-price"></span></div>
-      <div class="modal-actions" id="modal-actions"></div>
-      <button class="btn-share" id="modal-share-btn" onclick="shareCard()">🔗 Partager cette carte</button>
-    </div>
-  </div>
-</div>
-
-<!-- CONTACT MODAL -->
-<div class="modal-overlay" id="contact-modal" style="z-index:600;">
-  <div class="modal" style="grid-template-columns:1fr;max-width:480px;">
-    <button class="modal-close" onclick="document.getElementById('contact-modal').classList.remove('open')">✕</button>
-    <div class="modal-info" style="padding:36px 32px 28px;">
-      <div style="font-family:'Bangers',cursive;font-size:1.8rem;letter-spacing:2px;color:var(--dark);margin-bottom:4px;">💬 Contact & Paiement</div>
-      <p style="color:var(--muted);font-size:0.88rem;margin-bottom:18px;">Paiement alternatif disponible via Telegram :</p>
-
-      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:22px;">
-        <div style="display:flex;align-items:center;gap:12px;background:var(--gray);border-radius:12px;padding:12px 16px;">
-          <span style="font-size:1.4rem;">₿</span>
-          <div><div style="font-weight:900;font-size:0.9rem;color:var(--dark);">Crypto</div><div style="font-size:0.78rem;color:var(--muted);">Bitcoin, Ethereum, USDT et autres</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;background:var(--gray);border-radius:12px;padding:12px 16px;">
-          <span style="font-size:1.4rem;">🔄</span>
-          <div><div style="font-weight:900;font-size:0.9rem;color:var(--dark);">Échange de cartes</div><div style="font-size:0.78rem;color:var(--muted);">Trade possible selon les cartes</div></div>
-        </div>
-      </div>
-
-      <a class="btn btn-vinted" href="https://t.me/+RisBsJjasXhmYjVk" target="_blank" rel="noopener" style="width:100%;justify-content:center;padding:12px;font-size:0.9rem;border-radius:12px;">
-        ✈️ Rejoindre sur Telegram
-      </a>
-      <a class="btn" href="https://discord.gg/XhXhCXXvU" id="discord-link" style="width:100%;justify-content:center;padding:12px;font-size:0.9rem;border-radius:12px;background:#5865f2;color:#fff;margin-top:6px;display:flex;">
-        🎮 Rejoindre sur Discord
-      </a>
-      <p style="text-align:center;font-size:0.72rem;color:var(--muted);margin-top:8px;">🔔 Rejoins les groupes pour être notifié à chaque nouvel arrivage !</p>
-    </div>
-  </div>
-</div>
-
-<!-- TELEGRAM + DISCORD BANNER -->
-<section style="background:var(--dark);padding:36px 24px;">
-  <div style="max-width:800px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-
-    <!-- Telegram -->
-    <div style="background:linear-gradient(135deg,#0088cc,#005f8e);border-radius:16px;padding:28px 24px;text-align:center;">
-      <div style="font-size:2rem;margin-bottom:8px;">✈️</div>
-      <h3 style="font-family:'Bangers',cursive;font-size:1.5rem;letter-spacing:2px;color:#fff;margin-bottom:8px;">Telegram</h3>
-      <p style="color:rgba(255,255,255,0.8);font-size:0.82rem;line-height:1.6;margin-bottom:16px;">Arrivages & offres exclusives en avant-première</p>
-      <a href="https://t.me/+RisBsJjasXhmYjVk" target="_blank" rel="noopener"
-         style="display:inline-block;background:#fff;color:#0088cc;font-family:'Nunito',sans-serif;font-weight:900;font-size:0.85rem;padding:10px 22px;border-radius:30px;text-decoration:none;">
-        Rejoindre →
-      </a>
-      <p style="color:rgba(255,255,255,0.45);font-size:0.68rem;margin-top:10px;">Gratuit · 0 spam</p>
-    </div>
-
-    <!-- Discord -->
-    <div style="background:linear-gradient(135deg,#5865f2,#3a45c9);border-radius:16px;padding:28px 24px;text-align:center;">
-      <div style="font-size:2rem;margin-bottom:8px;">🎮</div>
-      <h3 style="font-family:'Bangers',cursive;font-size:1.5rem;letter-spacing:2px;color:#fff;margin-bottom:8px;">Discord</h3>
-      <p style="color:rgba(255,255,255,0.8);font-size:0.82rem;line-height:1.6;margin-bottom:16px;">Communauté, échanges & discussions TCG</p>
-      <a href="https://discord.gg/XhXhCXXvU" id="discord-banner-btn" target="_blank" rel="noopener"
-         style="display:inline-block;background:#fff;color:#5865f2;font-family:'Nunito',sans-serif;font-weight:900;font-size:0.85rem;padding:10px 22px;border-radius:30px;text-decoration:none;">
-        Rejoindre →
-      </a>
-      <p style="color:rgba(255,255,255,0.45);font-size:0.68rem;margin-top:10px;">Rejoindre →</p>
-    </div>
-
-  </div>
 </section>
 
-<!-- À PROPOS -->
-<section style="background:var(--dark);padding:48px 24px;text-align:center;">
-  <h2 style="font-family:'Bangers',cursive;font-size:2rem;letter-spacing:2px;color:var(--yellow);margin-bottom:16px;">À Propos de KardCollect</h2>
-  <p style="color:#a0b4cc;max-width:560px;margin:0 auto 28px;line-height:1.8;font-size:0.95rem;">
-    Passionné de cartes à collectionner depuis plusieurs années, je propose des cartes <strong style="color:#fff;">Pokémon, One Piece, League of Legends Riftbound et Dragon Ball Z</strong> soigneusement sélectionnées et gradées par les meilleurs services du marché.<br/><br/>
-    Chaque carte est authentique, expédiée en boîte rigide et la préparation est filmée pour votre sécurité. Avec <strong style="color:var(--yellow);">64 ventes</strong> réalisées et une note de <strong style="color:var(--yellow);">5/5 sur Vinted</strong>, votre satisfaction est ma priorité.
-  </p>
-  <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
-    <a href="https://www.vinted.fr/member/87640273" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#09b1ba;color:#fff;padding:10px 20px;border-radius:30px;font-family:'Nunito',sans-serif;font-weight:800;font-size:0.85rem;text-decoration:none;">Vinted</a>
-    <a href="https://www.ebay.fr/usr/kardcollect" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:var(--yellow);color:var(--dark);padding:10px 20px;border-radius:30px;font-family:'Nunito',sans-serif;font-weight:800;font-size:0.85rem;text-decoration:none;">eBay</a>
-    <a href="https://www.leboncoin.fr/profile/21c66d3e-759e-40fd-a008-a85dad801cb3" target="_blank" style="display:inline-flex;align-items:center;gap:6px;background:#f56b2a;color:#fff;padding:10px 20px;border-radius:30px;font-family:'Nunito',sans-serif;font-weight:800;font-size:0.85rem;text-decoration:none;">LeBonCoin</a>
-    <button onclick="document.getElementById('contact-modal').classList.add('open')" style="display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--yellow);border:2px solid var(--yellow);padding:10px 20px;border-radius:30px;font-family:'Nunito',sans-serif;font-weight:800;font-size:0.85rem;cursor:pointer;">💬 Contact & Paiement</button>
-  </div>
+<main id="catalog"></main>
+
+<section class="comm">
+<div class="wrap comm-g">
+  <div><div class="lbl" style="color:var(--gold)">Telegram</div><h3>Notifications nouvelles cartes</h3><p>Une notification sur ton téléphone à chaque nouvelle carte mise en ligne. Gratuit, sans spam.</p><a class="btn" href="https://t.me/+RisBsJjasXhmYjVk" target="_blank" rel="noopener">Rejoindre le groupe</a></div>
+  <div><div class="lbl" style="color:var(--gold)">Discord</div><h3>Communauté, échanges et discussions TCG</h3><p>Conseils de gradation, résultats et échanges entre collectionneurs.</p><a class="btn" href="https://discord.gg/XhXhCXXvU" target="_blank" rel="noopener">Rejoindre le serveur</a></div>
+  <div><div class="lbl" style="color:var(--gold)">X</div><h3>Suis-nous sur X</h3><p>Annonces et actualité de la boutique.</p><a class="btn" href="https://x.com/" target="_blank" rel="noopener">Suivre sur X</a></div>
+</div>
 </section>
 
-<!-- FOOTER -->
+<section class="about">
+<div class="wrap">
+  <h2>À propos de Kevin-Boutique</h2>
+  <p>Passionné de cartes à collectionner depuis plusieurs années, je propose des cartes Pokémon, One Piece, League of Legends Riftbound et Dragon Ball soigneusement sélectionnées et gradées. Chaque carte est authentique, expédiée en boîte rigide, préparation filmée. 68 ventes et 5 ★ sur Vinted.</p>
+  <div class="plats">
+    <a class="btn" href="https://www.vinted.fr/member/87640273" target="_blank" rel="noopener">Vinted</a>
+    <a class="btn" href="https://www.leboncoin.fr/profile/21c66d3e-759e-40fd-a008-a85dad801cb3" target="_blank" rel="noopener">Leboncoin</a>
+    <a class="btn" href="https://www.ebay.fr/usr/kardcollect" target="_blank" rel="noopener">eBay</a>
+    <button class="btn pay" data-pay>Payer en crypto</button>
+  </div>
+</div>
+</section>
+
 <footer>
-  <strong>KardCollect</strong> — Cartes Gradées Pokémon, One Piece, League of Legends Riftbound &amp; Dragon Ball Z<br/>
-  Toutes les ventes se font via <strong>Vinted</strong> ou <strong>Le Bon Coin</strong> pour votre sécurité.<br/>
-  <small>© 2025 KardCollect · Fait avec ❤️</small>
+<div class="wrap"><b><span>K</span>evin-Boutique</b> — Cartes gradées Pokémon, One Piece, League of Legends Riftbound et Dragon Ball<br>Toutes les ventes se font via Vinted, Leboncoin ou eBay · © 2026</div>
 </footer>
 
+<!-- fiche carte -->
+<div class="ov" id="ovCard"><div class="box mod">
+  <button class="x" data-close aria-label="Fermer">×</button>
+  <div class="mod-img"><img class="main" id="mImg" alt=""><div class="thumbs" id="mThumbs"></div></div>
+  <div class="mod-info" id="mInfo"></div>
+</div></div>
+
+<!-- paiement crypto -->
+<div class="ov" id="ovPay"><div class="box pay">
+  <button class="x" data-close aria-label="Fermer">×</button>
+  <h3>Paiement et contact</h3>
+  <p>Paiement alternatif disponible via Telegram.</p>
+  <div class="opt"><b>Crypto</b><span>Bitcoin, Ethereum, USDT et autres</span></div>
+  <a class="btn gold" href="https://t.me/+RisBsJjasXhmYjVk" target="_blank" rel="noopener" style="margin-bottom:8px">Rejoindre sur Telegram</a>
+  <a class="btn" href="https://discord.gg/XhXhCXXvU" target="_blank" rel="noopener">Rejoindre sur Discord</a>
+</div></div>
+
 <script>
-  const CARDS = [
-    // Ajoute tes cartes gradées ici
-  ];
+/* ══════════════════════════════════════════════════════════
+   AJOUTER UNE CARTE : copie ce modèle dans CARDS (une ligne par carte)
+   { id:1, universe:"poke", name:"Nom", set:"Set", number:"001/165", cardType:"Alt Art",
+     language:"FR", gradingService:"CCC", grade:10, cert:"", price:99,
+     image:"", image2:"", featured:false, isNew:true, sold:false,
+     vinted:"", leboncoin:"", ebay:"" },
+   universe : "poke" | "op" | "lol" | "db"        language : "FR" | "JP" | "EN" | "CH"
+   grade : 9 | 9.5 | 10 | "10gold" | "10black"    gradingService : "CCC" | "PSA" | "PCA" | "CA"
+   Vendue : passe sold à true (le compteur « Déjà vendus » monte tout seul).
+   ══════════════════════════════════════════════════════════ */
+const CARDS = [
+];
 
-  // ── STATE ──
-  // ─────────────────────────────────────────────
-  //  PRODUITS SCELLÉS
-  // ─────────────────────────────────────────────
-  const SEALED = [
-    // Ajoute tes produits scellés ici
-  ];
+const VENTES_BASE = 68; /* ventes déjà réalisées avant le site */
 
-  // ─────────────────────────────────────────────
-  //  CARTES LOOSE — non gradées
-  // ─────────────────────────────────────────────
-  const LOOSE = [
-    { id:321, universe:"poke", name:"Cayenn FA", set:"Faille Paradoxe", number:"241/182", cardType:"FA", language:"FR", condition:"Neuf sans étiquette", price:3.99, image:"https://images1.vinted.net/t/06_01d75_uMmLd9eDPNoL3eEv4LLgki3Z/f800/1773054244.webp?s=0b48ecacd8dccbd43c33f551dcda1de648e26678", image2:"https://images1.vinted.net/t/05_00fbe_DCKN2aoC7fo7bGyGKw9Xt6qv/f800/1773054244.webp?s=1b1f11272dff41da0144f72ed404794cdfb9d4dd", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/8351036879-carte-pokemon-cayenn-fa-241182-par-faille-paradoxe", ebay:"", leboncoin:"" },
-    { id:322, universe:"poke", name:"Recherches Professorales FA", set:"Écarlate et Violet", number:"241/198", cardType:"FA", language:"FR", condition:"Neuf sans étiquette", price:3.49, image:"https://images1.vinted.net/t/04_00896_sr4KAF3F91P1Ep8B1oEFYpDA/f800/1773054402.webp?s=c0ae0491c53ca79e4672e8521a64c3105aab59fc", image2:"https://images1.vinted.net/t/04_019da_Ji7bu8vT8oTMWheoWj1XnLcm/f800/1773054402.webp?s=58b78a19c69e2f0646e2e334a3c642250effbc57", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/8351059034-carte-pokemon-recherches-professorales-fa-241198-svi-ecarlate-et-violet", ebay:"", leboncoin:"" },
-    { id:323, universe:"poke", name:"Anis FA", set:"Faille Paradoxe", number:"243/182", cardType:"FA", language:"FR", condition:"Neuf sans étiquette", price:3.99, image:"https://images1.vinted.net/t/05_02619_ryuxYjo2tqDXkXGh1MXVL29T/f800/1773054542.webp?s=45e9da2556050680a6af04685b231b10d0aff0a4", image2:"https://images1.vinted.net/t/05_01c4d_m34djtznwWbgNfVbXquEAx1h/f800/1773054542.webp?s=5feab205e0817ef9d5b81d7c2dc7080095985b69", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/8351078792-carte-pokemon-anis-fa-243182-par-faille-paradoxe", ebay:"", leboncoin:"" },
-    { id:324, universe:"poke", name:"Ogerpon Masque du Fourneau EX FA", set:"Mascarade Crépusculaire", number:"192/167", cardType:"EX FA", language:"FR", condition:"Neuf sans étiquette", price:4.99, image:"https://images1.vinted.net/t/03_003c7_JnJC7K1eXYh5JBgtFHCxB7b8/f800/1773054662.webp?s=ad02dc1ca2e7095c71ade3f176fabfa289a7332c", image2:"https://images1.vinted.net/t/06_006e1_JeQm4kteA3DmHLLXLFamJmb6/f800/1773054662.webp?s=5bde0a960b5ab77268901e1372543a9c46b6d41c", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/8351095475-carte-pokemon-ogerpon-masque-du-fourneau-ex-fa-192167-twm-mascarade-crepusculaires", ebay:"", leboncoin:"" },
-    { id:325, universe:"poke", name:"Vitalité de la Professeure Olim ALT", set:"Faille Paradoxe", number:"256/182", cardType:"ALT", language:"FR", condition:"Neuf sans étiquette", price:16.99, image:"https://images1.vinted.net/t/05_0077f_X82js42bmjW3fmbty6hdSgE3/f800/1773054885.webp?s=45cf141f63544820231f0c2201216ce16fb50724", image2:"https://images1.vinted.net/t/05_025e7_caDDaiA2mM7YxGHbNyUioZSi/f800/1773054885.webp?s=37a399a0e632e0259b11affca40305930bb175a0", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/8351126864-carte-pokemon-vitalite-de-la-professeure-olim-alt-256182-par-faille-paradoxe", ebay:"", leboncoin:"" },
-    { id:326, universe:"poke", name:"Scalpereur AR", set:"Écarlate et Violet", number:"220/198", cardType:"AR", language:"FR", condition:"Très bon état", price:8.99, image:"https://images1.vinted.net/t/05_0124d_D5xmBbRv82v2B3f6R1HqpqAo/f800/1773055526.webp?s=eb1b118098964ad13105721918e7e9ece6a4ecc1", image2:"https://images1.vinted.net/t/04_01827_MKyU6ppQcxkPnFNKTHqgdhR9/f800/1773055526.webp?s=c3aeb22334294e641f98ecab3c6ca2529e5cf38e", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/8351216457-carte-pokemon-scalpereur-ar-220198-svi-ecarlate-et-violet", ebay:"", leboncoin:"" },
-    { id:329, universe:"poke", name:"Roigada de Galar VMAX", set:"Règne de Glace", number:"100/198", cardType:"VMAX", language:"FR", condition:"Neuf sans étiquette", price:2.49, image:"https://images1.vinted.net/t/04_015a9_Bf4SKFCGKWa7Td2DhkvFXWKe/f800/1781008976.webp?s=44f0dc8a213aefbadaac9a77d8c84775fb846070", image2:"https://images1.vinted.net/t/06_0071e_gCPJsVixJ971cUDiNaAZfsdX/f800/1781008976.webp?s=584b40187dd54a3898f74ffdbdc344683535842c", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9129302189-carte-pokemon-roigada-de-galar-vmax-100198-regne-de-glace", ebay:"", leboncoin:"" },
-    { id:330, universe:"poke", name:"Kyurem VMAX", set:"Origine Perdue", number:"049/196", cardType:"VMAX", language:"FR", condition:"Neuf sans étiquette", price:3.99, image:"https://images1.vinted.net/t/06_0138b_iNL52yiB16ceZaGY4AUrdbRf/f800/1781009041.webp?s=f0987b1bf8225586f0a609033019930a553cbd3e", image2:"https://images1.vinted.net/t/06_000e7_skVVaYQmrgGYXQBF4XUdJfwX/f800/1781009041.webp?s=d0599d33e90930bb77d681cd6cc8ef3e21b3efe8", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9129312361-carte-pokemon-kyurem-vmax-049196-origine-perdu", ebay:"", leboncoin:"" },
-    { id:331, universe:"poke", name:"Casque Punk FA", set:"Flammes Fantasmagoriques", number:"121/094", cardType:"FA", language:"FR", condition:"Neuf sans étiquette", price:1.99, image:"https://images1.vinted.net/t/05_01ba0_xE2znGBUB9Rip6ZcP9XjEiVy/f800/1781009123.webp?s=ba5037cb6590210973fdc18f48772a5ba7ecafea", image2:"https://images1.vinted.net/t/06_01855_3ty7iakd2nx6TQX5w6pW6TtS/f800/1781009123.webp?s=0d9d766a616aefec1fa4e9217f8e78e226cfce56", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9129325355-carte-pokemon-casque-punk-fa-pfl-121094-flammes-fantasmagoriques", ebay:"", leboncoin:"" },
-    { id:332, universe:"poke", name:"Raichu V", set:"Stars Étincelantes", number:"045/172", cardType:"V", language:"FR", condition:"Très bon état", price:2.99, image:"https://images1.vinted.net/t/06_00044_ZMWFx7v8D9w3Sgxzh2w6j5Vg/f800/1781009216.webp?s=688ec650d9f1b743c24b048242058bfdace7e1a4", image2:"https://images1.vinted.net/t/01_01736_8Y1vKvTL6kXz6FHP6iv1vgna/f800/1781009216.webp?s=c11ce4fdec4c1d9ed9e62c5f6364832fb0f7a121", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9129340110-carte-pokemon-raichu-v-045172-stars-etincelantes", ebay:"", leboncoin:"" },
-    { id:333, universe:"poke", name:"Régieleki V (Promo)", set:"Épée et Bouclier", number:"SWSH280", cardType:"V", language:"FR", condition:"Neuf sans étiquette", price:1.99, image:"https://images1.vinted.net/t/03_020a7_kcLSkw7bnDHNWkXXBG1afJCh/f800/1781009372.webp?s=87d443e7d3904cd5357d1a87c03a8c0be4a9781b", image2:"https://images1.vinted.net/t/04_0119b_WDzuYKhzfk8kCNnjdufWRgja/f800/1781009372.webp?s=4698bde44890ce6ec7965bdbbc84b3873c2e9583", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9129365217-carte-promo-pokemon-regieleki-v-swsh280-epee-et-bouclier", ebay:"", leboncoin:"" },
-    { id:334, universe:"poke", name:"Régidrago V (Promo)", set:"Épée et Bouclier", number:"SWSH281", cardType:"V", language:"FR", condition:"Neuf sans étiquette", price:1.99, image:"https://images1.vinted.net/t/05_016bb_hw2yuSyFdXT1M7myMLX5jUuo/f800/1781009436.webp?s=e6968f14e6eaa801b56292aba96425b736306fab", image2:"https://images1.vinted.net/t/01_00d04_XL77uiSAqxjDSQfcUFLioupT/f800/1781009436.webp?s=c242ebfb2371666eb4f9d3cd94fbd8483db82b57", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9129375317-crate-promo-pokemon-regidrago-v-swsh281-epee-et-bouclier", ebay:"", leboncoin:"" },
-    { id:335, universe:"poke", name:"Gouroutan V", set:"Astre Radieux", number:"133/189", cardType:"V", language:"FR", condition:"Neuf sans étiquette", price:1.99, image:"https://images1.vinted.net/t/01_0194a_cSKAiS4qqwUXEG6t13kwpoLy/f800/1781009591.webp?s=87bdd63ca4708332059e55dd1a080d18dbf0146d", image2:"https://images1.vinted.net/t/05_02556_YwYaGEaeb1drunX7euQNron6/f800/1781009591.webp?s=9057cf573c16bceee0b673e2bfdabb5fb4c3d54d", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9129399716-carte-pokemon-gouroutan-v-133189-astre-radieux", ebay:"", leboncoin:"" },
-    { id:336, universe:"poke", name:"Shaymin V", set:"Stars Étincelantes", number:"013/172", cardType:"V", language:"FR", condition:"Neuf sans étiquette", price:1.99, image:"https://images1.vinted.net/t/03_016e1_DLMQc1keBLZSkPnwDKEWPJct/f800/1781009644.webp?s=4acfdc2f24001c308ee51456acafaac3dcf6d7bb", image2:"https://images1.vinted.net/t/05_01397_HhjnBjujZ9FZrHPMU99kkDmv/f800/1781009644.webp?s=78805be2cc69d5dbb11f2267743bcdde3c0497a0", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9129408178-carte-pokemon-shaymin-v-013172-stars-etincelantes", ebay:"", leboncoin:"" },
-    { id:337, universe:"poke", name:"Mimiqui V", set:"Stars Étincelantes", number:"068/172", cardType:"V", language:"FR", condition:"Neuf sans étiquette", price:2.99, image:"https://images1.vinted.net/t/01_00b54_5nkmPd6TvbBVZVsoiUGVrdtJ/f800/1781009705.webp?s=7f13bcf4ab89123ea6b459d8af942250468e8334", image2:"https://images1.vinted.net/t/06_00e20_zxZ44QQTk8GLMUqFpta1PsjD/f800/1781009705.webp?s=e20811d685c17420edda0fb14d65387ffc5c4bfe", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9129417960-carte-pokemon-mimiqui-v-068172-stars-etincelantes", ebay:"", leboncoin:"" },
-    { id:313, universe:"poke", name:"Gigansel AR", set:"Méga Évolution", number:"147/132", cardType:"AR", language:"FR", condition:"Neuf sans étiquette", price:1.99, image:"https://images1.vinted.net/t/06_01462_VLXxL2xsVEy62iq8ahvj7r9b/f800/1780996748.webp?s=61a8c57a237bd5661192a43fb71f5f96cac98dd1", image2:"https://images1.vinted.net/t/06_01c97_1dpePbbLrS4xvXXTyLycMUif/f800/1780996748.webp?s=d64932dba94cd5dc1a6a68aff380a5d6b2dc4732", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9127552977-carte-pokemon-gigansel-ar-meg-147132-mega-evolution", ebay:"", leboncoin:"" },
-    { id:314, universe:"poke", name:"Recherches Professorales FA", set:"Pokémon Go", number:"084/078", cardType:"FA", language:"FR", condition:"Neuf sans étiquette", price:27.99, image:"https://images1.vinted.net/t/05_00ff5_jmoTGhrmrPynA4PBx92AmaN2/f800/1780996986.webp?s=6b5d94a4850aeac753084540b75628aa5cb740e0", image2:"https://images1.vinted.net/t/05_003b8_p12vK5HQZF3MXBvWUojw93pt/f800/1780996986.webp?s=44365e66ae49bae78980661c8b6a221f7f72c28a", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9127584834-carte-pokemon-recherches-professorales-fa-084078-pokemon-go", ebay:"", leboncoin:"" },
-    { id:315, universe:"poke", name:"Méga Élecsprint EX", set:"Méga Évolution", number:"158/132", cardType:"EX", language:"FR", condition:"Neuf sans étiquette", price:5.99, image:"https://images1.vinted.net/t/05_0244b_pFzPTRG4PrHKxSuJbCkzr2fa/f800/1780997335.webp?s=8365e5f674d04cb02ff412bbc4e8c94a4c16e9c8", image2:"https://images1.vinted.net/t/06_006f4_kXEhDpygg8p7v5gAFrb8YPjS/f800/1780997335.webp?s=3d61ac91718a818795cc06e6340cd7a1a419bdc3", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9127632473-carte-pokmeon-mega-elecsprint-ex-meg-158132-mega-evolution", ebay:"", leboncoin:"" },
-    { id:316, universe:"poke", name:"Ptyranidur AR (Promo)", set:"Promo Méga Évolution", number:"MEP 070", cardType:"AR", language:"FR", condition:"Neuf sans étiquette", price:5.99, image:"https://images1.vinted.net/t/01_005dc_n9SRkguDJLNsGS8a3GrBej24/f800/1780996517.webp?s=d82b9c5697ac9fad556b46e02fdeb5ed86bc8862", image2:"https://images1.vinted.net/t/05_0203b_nsd5bRXRDMDWYE3eyNoPHp95/f800/1780996517.webp?s=20ce9f6525c1438b41e1b45334fb6eee9ac29e41", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9127522312-carte-pokemon-promo-ptyranidur-ar-mep-070-promo-mega-evolution", ebay:"", leboncoin:"" },
-    { id:317, universe:"poke", name:"Dedenne AR", set:"Équilibre Parfait", number:"093/088", cardType:"AR", language:"FR", condition:"Neuf sans étiquette", price:9.99, image:"https://images1.vinted.net/t/04_0014e_LQ7yFLFfqgnVx5XP9Fmmz9fV/f800/1780996318.webp?s=f7af19c9eaa4c9af53cbad76b95cafd9192ba7f1", image2:"https://images1.vinted.net/t/04_00bed_U4d61aGS1FWajrffDYyLcVoB/f800/1780996318.webp?s=96e4994128e75fc70301a4f7dbfdfeef9243cf4f", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9127496167-carte-pokemon-dedenne-ar-por-093088-equilibre-parfait", ebay:"", leboncoin:"" },
-    { id:318, universe:"poke", name:"Petite Frappe FA", set:"Aventures Ensemble", number:"181/159", cardType:"FA", language:"FR", condition:"Neuf sans étiquette", price:1.99, image:"https://images1.vinted.net/t/01_00828_FRVLJSwBovvGnnPzprFncGWa/f800/1780996136.webp?s=9ca9dff03feac07cb50660b68a18b790a1bb65d0", image2:"https://images1.vinted.net/t/06_02108_rB43PSsYC4AkvCuDvi2z8gx2/f800/1780996136.webp?s=a9dafbd2b7b771def6a0197036a45ea58ee97c81", featured:false, isNew:true, sold:true, vinted:"https://www.vinted.fr/items/9127472766-carte-pokemon-petite-frappe-fa-jtg-181159-aventures-ensembles", ebay:"", leboncoin:"" },
-    { id:319, universe:"poke", name:"Grusha ALT", set:"Évolution à Paldea", number:"268/193", cardType:"ALT", language:"FR", condition:"Très bon état", price:17.99, image:"https://images1.vinted.net/t/05_0125b_b1ztbGm4d4gxqy39q3Lx6pqN/f800/1780995843.webp?s=61ca2e3e7559781e3824a87aa71f41008179cc71", image2:"https://images1.vinted.net/t/05_011d8_tA5tuKqsC77HAAYEzoUsH25W/f800/1780995843.webp?s=224e539946a79147c6a6f00ba6c88309e7d3a9ef", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9127435375-carte-pokemon-grusha-alt-pal-268193-evolution-a-paldea", ebay:"", leboncoin:"" },
-    { id:311, universe:"poke", name:"Sentier Blanche Cime GOLD", set:"Astre Radieux", number:"213/189", cardType:"GOLD", language:"FR", condition:"Neuf sans étiquette", price:10.99, image:"https://images1.vinted.net/t/01_00dc3_w5a9f1rQRPg6hWgoA1WfUkeU/f800/1780996600.webp?s=c5b514f7c3d03abd7f68cbdbc7ccecc07a78a0f6", image2:"https://images1.vinted.net/t/05_00a0b_sJxEscBpwtHXq1QwmWqkFjcK/f800/1780996600.webp?s=312b7b8e63e4ddb2329bbe73f05d930984331d62", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9127533228-carte-pokemon-sentier-blanche-cime-gold-213189-astre-radieux", ebay:"", leboncoin:"" },
-    { id:311, universe:"poke", name:"Petite Frappe FA", set:"Aventures Ensemble", number:"181/159", cardType:"FA", language:"FR", condition:"Neuf sans étiquette", price:1.99, image:"https://images1.vinted.net/t/06_00d12_efyicq2iA52ZDU14aNSqR2TC/f800/1781086757.webp?s=84410355debb082918d39b9ce939c7f5c16e3388", image2:"https://images1.vinted.net/t/01_000f2_iUdgqQLFA4Ht8rpfJQ7x1Ufm/f800/1781086757.webp?s=d820b3f1b7948658d19c34d25688599f1b46a2c1", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9136472905-carte-pokemon-petite-frappe-fa-jtg-181159-aventures-ensembles", ebay:"", leboncoin:"" },
-    { id:335, universe:"poke", name:"Roue-de-fer EX ALT", set:"Écarlate et Violet", number:"248/198", cardType:"ALT", language:"FR", condition:"Neuf sans étiquette", price:11.99, image:"https://images1.vinted.net/t/05_002b8_ymbcCgmvWsr3mdQeVeX6p71K/f800/r3/1781258646.webp?s=0a8778b992de81f5265f1db4e54dc478958c6c7b", image2:"https://images1.vinted.net/t/05_01dc8_D5MzP54AY5L4fiGgwfpWJvkT/f800/r3/1781258646.webp?s=122ed45230ae2454e51f4653a73daf3387f29060", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9152615122-carte-pokemon-roue-de-fer-ex-alt-svi-248198-ecarlate-et-violet", ebay:"", leboncoin:"" },
-    { id:336, universe:"poke", name:"Otaquin AR", set:"30 ans - First Partner Série 2", number:"MEP-045", cardType:"AR Promo", language:"FR", condition:"Neuf sans étiquette", price:9.99, image:"https://images1.vinted.net/t/05_02222_gA9NEYDNw86tgudgK5oBH3a7/f800/1781009793.webp?s=89946b5da990e79c65711b36d937a8b39b513727", image2:"https://images1.vinted.net/t/03_020c8_fyve1AsT6XkHAPPXMjKq1AsE/f800/1781009793.webp?s=a61e0a8983e0d63f7453aab6264799131b19b810", featured:false, isNew:true, sold:false, vinted:"https://www.vinted.fr/items/9129432041-carte-pokemon-30-ans-first-partner-serie-2-otaquin-ar-mep-045-promo", ebay:"", leboncoin:"" },
-    { id:337, universe:"poke", name:"Eoko AR", set:"Mascarade Crépusculaire", number:"179/167", cardType:"AR", language:"FR", condition:"Neuf sans étiquette", price:3.49, image:"https://images1.vinted.net/t/05_00dff_hWcJw5P1EGxcJoeLHCPgaf4X/f800/1780997252.webp?s=2be8c583756d93cac1a32e920a53dc9e41a91c4b", image2:"https://images1.vinted.net/t/06_021b0_ngT5ueX9onw57MC3nwm9bBA2/f800/1780997252.webp?s=e8d5a8e260a36a33b93455ab5df86c2d8fa7c7b4", featured:false, isNew:true, sold:true, vinted:"https://www.vinted.fr/items/9127621069-carte-pokemon-eoko-ar-twm-179167-mascarade-crepusculaire", ebay:"", leboncoin:"" },
-    { id:301, universe:"poke", name:"Lamantine AR", set:"Flammes Fantasmagoriques", number:"097/094", cardType:"AR", language:"FR", condition:"Neuf sans étiquette", price:5.99, image:"https://images1.vinted.net/t/05_01f17_omgWP5MMNoPaKqLBRR8Y5PUp/f800/1773056940.webp?s=d7e33c9377070f9f00bf7f5fba6c88ad53350e03", image2:"https://images1.vinted.net/t/05_01010_WH5MCR4q2fL5msHwjznBNzrP/f800/1773056940.webp?s=e07fffe8b19638400117c42ea45a81f287ce3ed4", featured:false, isNew:false, sold:true, vinted:"https://www.vinted.fr/items/8351419673-carte-pokemon-lamantine-ar-097094-pfl-flammes-fantasmagorique", ebay:"", leboncoin:"" },
-    { id:302, universe:"poke", name:"Kyurem Noir FA",       set:"Étincelles Déferlantes",   number:"218/191", cardType:"FA",   language:"FR", condition:"Neuf sans étiquette", price:6.99,  image:"https://images1.vinted.net/t/01_01883_m3Wwr6GowcT9iQtVqYLcuooV/f800/1773056703.webp?s=3668d67fc0d7bf97f86736fe7f1be4d0498d34c0", image2:"https://images1.vinted.net/t/01_02576_2hWhpsijMe41kFyhiwbnAFKo/f800/1773056703.webp?s=422b2aae4b42560610199981f17d8fe95ab89823", featured:false, isNew:false, sold:false, vinted:"https://www.vinted.fr/items/8351384742-carte-pokemon-kyurem-noir-fa-218191-ssp-etincelles-deferlantes", ebay:"", leboncoin:"" },
-    { id:304, universe:"poke", name:"Pikachu Surfeur VMAX", set:"Célébration 25 ans", number:"009/025", cardType:"VMAX", language:"FR", condition:"Neuf sans étiquette", price:11.99, image:"https://images1.vinted.net/t/06_00f4e_VS6TV8TJ7sRMS1qFm4kDnsAU/f800/1780445019.webp?s=b9804e6fa8f50f3e462cfa27519b7ba97d310740", image2:"https://images1.vinted.net/t/04_009ce_eoMqBkDMc9oP9kcgTm3fWB6v/f800/1780445019.webp?s=f99e74a15a0c42c85760c84c3a3478336553dbb2", featured:false, isNew:true, sold:true, vinted:"https://www.vinted.fr/items/9073492458-pikachu-surfeur-vmax-0009025-celebration-25-ans", ebay:"", leboncoin:"https://www.leboncoin.fr/ad/collection/3209108410" },
-    { id:305, universe:"poke", name:"Crabaraque AR", set:"Rivalités Destinées", number:"186/182", cardType:"AR", language:"FR", condition:"Neuf sans étiquette", price:3.99,  image:"https://images1.vinted.net/t/05_02394_Pe3kvhqjiCuGfZhmLbaHjcmg/f800/1780385002.webp?s=2e366843aea7291c6ca30c1aae61d4be8497e67f", image2:"https://images1.vinted.net/t/06_00f05_4TESFpufzdFEDxgozN7bRGuT/f800/1780385002.webp?s=ac2732afc0b7d52af81ba099a443d37b6c12284f", featured:false, isNew:false, sold:false, vinted:"https://www.vinted.fr/items/9065449231-carte-pokemon-crabaraque-ar-dri-186182-rivalites-destinees", ebay:"", leboncoin:"https://www.leboncoin.fr/ad/collection/3209107692" },
-    { id:306, universe:"poke", name:"Tylton AR",            set:"Faille Paradoxe",            number:"213/182", cardType:"AR", language:"FR", condition:"Neuf sans étiquette", price:9.99,  image:"https://images1.vinted.net/t/01_01426_NCh7KbGaUVGbPGmYcouY4vkV/f800/1780400206.webp?s=b8a61c30942628733729b680e0632a5c43ebda34", image2:"https://images1.vinted.net/t/06_012f4_vQ38Tz7945HJSG5AQx1brCNU/f800/1780400206.webp?s=e5dbde40e2d7b475d4d478d869e15d499c8fd753", featured:false, isNew:true, sold:true, vinted:"https://www.vinted.fr/items/9067488160-carte-pokemon-tylton-ar-par-213182-faille-paradoxe", ebay:"", leboncoin:"https://www.leboncoin.fr/ad/collection/3209157983" },
-    { id:307, universe:"poke", name:"Voltoutou AR",         set:"Flammes Fantasmagoriques",   number:"099/094", cardType:"AR",   language:"FR", condition:"Neuf sans étiquette", price:2.99,  image:"https://images1.vinted.net/t/03_0238b_vaURpHo7DwE1Z7ywiWAch7iz/f800/1780400100.webp?s=09f473d2426250668741c8d3736e144fc448a4a1", image2:"https://images1.vinted.net/t/05_024d8_oH9K1pLCaH8F8EQjZuvpvXgB/f800/1780400100.webp?s=6c1dc0c9c13a9a5d2feaea44f4b8a17ef35b643b", featured:false, isNew:true,  sold:true, vinted:"https://www.vinted.fr/items/9067472447-carte-pokemon-voltoutou-ar-pfl-099094-flammes-fantasmagoriques", ebay:"", leboncoin:"https://www.leboncoin.fr/ad/collection/3209157549" },
-    { id:308, universe:"poke", name:"Altaria FA", set:"Faille Paradoxe", number:"232/182", cardType:"FA", language:"FR", condition:"Neuf sans étiquette", price:4.99,  image:"https://images1.vinted.net/t/06_01aaa_4HVJSL5zs5AR43qdMsYEGXJU/f800/1780400009.webp?s=9ec6c76f51cbcfc973110fe859aa90c2d5cc5008", image2:"https://images1.vinted.net/t/06_01488_quUZ1mtpGfj4aqPdRGCf4Dmt/f800/1780400009.webp?s=7eb9ff91a26383583416b1c4bbecdd69e6fcc061", featured:false, isNew:true,  sold:false, vinted:"https://www.vinted.fr/items/9067458866-carte-pokemon-altaria-fa-par-232182-faille-paradoxe", ebay:"", leboncoin:"https://www.leboncoin.fr/ad/collection/3209157184" },
-    { id:309, universe:"poke", name:"Lougaroc AR", set:"Aventures Ensemble", number:"166/159", cardType:"AR", language:"FR", condition:"Neuf sans étiquette", price:3.99, image:"https://images1.vinted.net/t/06_020c1_nRgkbsQksDXVJ1C5TMaTDMGR/f800/1780399920.webp?s=18a846059698952274661f76058df17aacd164e8", image2:"https://images1.vinted.net/t/01_01808_B43XMCeXEhHye6a1zTyA6MLG/f800/1780399920.webp?s=2a1df7ea4ec1dc71bc50e9b90809d042cafb9920", featured:false, isNew:true, sold:true, vinted:"https://www.vinted.fr/items/9067445747-carte-pokemon-lougaroc-ar-jtg-166159-aventures-ensemble", ebay:"", leboncoin:"https://www.leboncoin.fr/ad/collection/3209156855" },
-    { id:303, universe:"poke", name:"Leveinard AR", set:"Mascarade Crépusculaire", number:"187/167", cardType:"AR", language:"FR", condition:"Neuf sans étiquette", price:39.99, image:"https://images1.vinted.net/t/01_00be2_WBwGhLCaTRvDgVHWdVhoE5NU/f800/1780385257.webp?s=bc4cbbc8b52f5f78aaa97106492572c7596e207b", image2:"https://images1.vinted.net/t/06_00e1d_ouXYEB5B54E5Dn1yZwbY3zE5/f800/1780385257.webp?s=10f49f4a9b3f3ce61b988e72fb521ff582a43018", featured:false, isNew:false, sold:true, vinted:"https://www.vinted.fr/items/9065464739-carte-pokemon-leveinard-ar-187167-mascarade-crepusculaire", ebay:"", leboncoin:"https://www.leboncoin.fr/ad/collection/3209107304" },
-  ];
+const SECTIONS = { poke:'Pokémon', op:'One Piece', lol:'League of Legends Riftbound', db:'Dragon Ball' };
+const UNIV = [['all','Tout'],['poke','Pokémon'],['op','One Piece'],['lol','Riftbound'],['db','Dragon Ball']];
+const LANG = [['all','Toutes'],['FR','FR'],['JP','JP'],['EN','EN'],['CH','CH']];
+const NOTE = [['all','Toutes'],['8','8'],['9','9'],['9.5','9.5'],['10','10'],['10gold','Gold'],['10black','Black']];
+/* notes proposées selon le gradeur choisi */
+const NOTE_BY = {
+  all: ['all','8','9','9.5','10','10gold','10black'],
+  PSA: ['all','8','9','10'],
+  CCC: ['all','9','9.5','10','10gold','10black'],
+  PCA: ['all','9','9.5','10','10black'],
+  CA:  ['all','9','9.5','10']
+};
+const GRAD = [['all','Tous'],['PSA','PSA'],['CCC','CCC'],['PCA','PCA'],['CA','CA']];
+const L = { vinted:'https://www.vinted.fr/member/87640273', leboncoin:'https://www.leboncoin.fr/profile/21c66d3e-759e-40fd-a008-a85dad801cb3', ebay:'https://www.ebay.fr/usr/kardcollect' };
 
-  let currentView   = 'graded';
-  let currentFilter = 'all';
-  let searchQuery   = '';
-  let gradeFilter   = 'all';
-  let graderFilter  = 'all';
-  let langFilter    = 'all';
-  let sortOrder     = 'default';
+const S = { univ:'all', lang:'all', note:'all', grader:'all', q:'', sort:'default' };
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const euro = n => Number(n).toLocaleString('fr-FR', { maximumFractionDigits:2 }) + ' €';
 
-  const UNIV_ICON   = { poke:'🃏', op:'⚔️', lol:'🎮', db:'🐉' };
-  const UNIV_LABEL  = { poke:'Pokémon', op:'One Piece', lol:'League of Legends Riftbound', db:'Dragon Ball Z' };
-  const UNIV_SHORT  = { poke:'Pokémon', op:'One Piece', lol:'LoL Riftbound', db:'Dragon Ball Z' };
-  const UNIV_COLORS = { poke:'#1d6fe8', op:'#e8271d', lol:'#1a9e2c', db:'#f97316' };
-  const LANG_FLAGS  = { FR:'🇫🇷', EN:'🇬🇧', JP:'🇯🇵', DE:'🇩🇪', ES:'🇪🇸', IT:'🇮🇹', PT:'🇵🇹', KO:'🇰🇷', ZH:'🇨🇳', CN:'🇨🇳' };
-
-  function gradeClass(s) {
-    s = (s||'').toLowerCase();
-    if (s==='psa') return 'grade-psa';
-    if (s==='bgs') return 'grade-bgs';
-    if (s==='pca') return 'grade-pca';
-    if (s==='ccc') return 'grade-ccc';
-    if (s==='collectura') return 'grade-collectura';
-    return 'grade-psa';
+/* ── filtres ── */
+function match(c){
+  if (S.univ !== 'all' && c.universe !== S.univ) return false;
+  if (S.lang !== 'all' && c.language !== S.lang) return false;
+  if (S.note !== 'all' && String(c.grade) !== S.note) return false;
+  if (S.grader !== 'all' && c.gradingService !== S.grader) return false;
+  if (S.q){
+    const hay = [c.name,c.set,c.number,c.cardType,c.gradingService,c.grade,c.language,SECTIONS[c.universe]].filter(Boolean).join(' ').toLowerCase();
+    if (!S.q.split(/\s+/).every(w => hay.includes(w))) return false;
   }
+  return true;
+}
+function sorted(a){
+  if (S.sort === 'asc')  return [...a].sort((x,y) => x.price - y.price);
+  if (S.sort === 'desc') return [...a].sort((x,y) => y.price - x.price);
+  return a;
+}
 
-  function mkBtn(url, cls, label) {
-    if (url && url !== '' && url !== '#')
-      return `<a class="btn ${cls} no-modal" href="${url}" target="_blank" rel="noopener">${label}</a>`;
-    return `<span class="btn btn-disabled no-modal" title="Rejoindre →">🔒 ${label}</span>`;
-  }
+/* ── pastilles de filtre ── */
+function chips(key, list, counts){
+  return list.map(([v,l]) => `<button class="chip${S[key]===v?' on':''}" data-g="${key}" data-v="${v}">${l}${counts&&counts[v]!=null?' ('+counts[v]+')':''}</button>`).join('');
+}
+function renderChips(){
+  const stock = CARDS.filter(c => !c.sold);
+  const cnt = { all: stock.length };
+  Object.keys(SECTIONS).forEach(u => cnt[u] = stock.filter(c => c.universe === u).length);
+  $('rowU').innerHTML =
+    '<span class="lbl" style="margin-right:6px">Univers</span>' + chips('univ', UNIV, cnt) +
+    '<span class="sep"></span><span class="lbl" style="margin-right:6px">Langue</span>' + chips('lang', LANG) +
+    `<select class="sort" id="sort" aria-label="Trier"><option value="default">Ordre par défaut</option><option value="asc">Prix croissant</option><option value="desc">Prix décroissant</option></select>`;
+  $('sort').value = S.sort;
+  $('rowN').innerHTML =
+    '<span class="lbl" style="margin-right:6px">Note</span>' + chips('note', NOTE.filter(n => NOTE_BY[S.grader].includes(n[0]))) +
+    '<span class="sep"></span><span class="lbl" style="margin-right:6px">Gradeur</span>' + chips('grader', GRAD);
+}
 
-  function contactBtn(c) {
-    return `<button class="btn btn-contact no-modal" style="grid-column:span 2;" onclick="document.getElementById('contact-modal').classList.add('open')">💬 Contact</button>`;
-  }
+/* ── cartes ── */
+function badge(c){
+  if (!c.gradingService) return '';
+  if (c.grade === '10gold')  return '<span class="gbadge gold">Gold Label</span>';
+  if (c.grade === '10black') return '<span class="gbadge black">Black Label</span>';
+  return `<span class="gbadge">${esc(c.gradingService)} ${esc(c.grade)}</span>`;
+}
+function link(url, label, cls){
+  return url ? `<a class="btn no-modal" href="${esc(url)}" target="_blank" rel="noopener">${label}</a>` : `<span class="btn off no-modal" title="Bientôt disponible">${label}</span>`;
+}
+function buyButtons(c){
+  return `<div class="plats">${link(c.vinted,'Vinted')}${link(c.leboncoin,'Leboncoin')}${link(c.ebay,'eBay')}<button class="btn pay no-modal" data-pay>Crypto</button></div>`;
+}
+function cardHtml(c){
+  const pic = c.image ? `<img src="${esc(c.image)}" alt="${esc(c.name)}" loading="lazy">` : '<div class="frame"></div>';
+  const tag = c.sold ? 'Vendue' : c.featured ? 'Coup de cœur' : c.isNew ? 'Nouveau' : '';
+  return `<article class="card${c.sold?' sold':''}" data-id="${c.id}">
+    <div class="pic">${pic}${badge(c)}${tag?`<span class="ptag">${tag}</span>`:''}</div>
+    <div class="cbody">
+      <span class="lbl">${SECTIONS[c.universe]||''} · ${esc(c.language||'')}</span>
+      <span class="cname">${esc(c.name)}</span>
+      <span class="cset">${esc(c.set||'')}${c.number?' · '+esc(c.number):''}</span>
+      <span class="cprice">${euro(c.price)}</span>
+      ${c.sold ? '<div class="btn sold-b no-modal">Carte vendue</div>' : buyButtons(c)}
+    </div></article>`;
+}
+function carousel(id, cards){
+  return `<div class="rowwrap"><button class="arrow l" data-scroll-row="${id}" data-dir="-1" aria-label="Précédent">‹</button>
+    <div class="row-scroll" id="${id}">${cards.map(cardHtml).join('')}</div>
+    <button class="arrow r" data-scroll-row="${id}" data-dir="1" aria-label="Suivant">›</button></div>`;
+}
+function section(id, title, inner, opts = {}){
+  return `<section class="sec${opts.alt?' alt':''}" id="${id}"><div class="wrap">
+    <div class="sec-h"><h2>${title}</h2>${opts.more?`<a class="btn" href="#" data-g="univ" data-v="${opts.more}" data-scroll="1">Voir tout →</a>`:''}</div>${inner}</div></section>`;
+}
 
-  function renderCard(c) {
-    const imgHtml = c.image
-      ? `<img src="${c.image}" alt="${c.name}" loading="lazy" />`
-      : `<div class="placeholder-art">${UNIV_ICON[c.universe]||'🃏'}<span>${UNIV_SHORT[c.universe]||c.universe}</span></div>`;
+/* ── rendu principal ── */
+function render(){
+  renderChips();
+  const stock = CARDS.filter(c => !c.sold);
+  const nSold = CARDS.length - stock.length;
+  $('statN').textContent = stock.length;
+  $('statSold').textContent = $('trustSold').textContent = VENTES_BASE + nSold;
 
-    const soldOverlay = c.sold ? `<div class="sold-overlay"><span class="sold-stamp">VENDU</span></div>` : '';
+  const list = CARDS.filter(match);
+  const avail = sorted(list.filter(c => !c.sold));
+  const sold = list.filter(c => c.sold);
+  const home = S.univ === 'all' && !S.q && S.note === 'all' && S.grader === 'all';
+  let html = '';
 
-    let badgeHtml = '';
-    if (c.gradingService && c.grade !== null && c.grade !== '') {
-      if (c.grade === '10gold')  badgeHtml = `<span class="grade-badge grade-gold">✨ Gold Label</span>`;
-      else if (c.grade === '10black') badgeHtml = `<span class="grade-badge grade-black">⚫ Black Label</span>`;
-      else badgeHtml = `<span class="grade-badge ${gradeClass(c.gradingService)}">${c.gradingService==='Collectura'?'CA':c.gradingService} ${c.grade}</span>`;
-    }
-
-    // Badge Nouveau ou Coup de cœur (en haut à gauche)
-    let specialBadge = '';
-    if (c.featured) specialBadge = `<span class="fav-badge">❤️</span>`;
-    else if (c.isNew) specialBadge = `<span class="new-badge">✦ Nouveau</span>`;
-
-    const actions = c.sold
-      ? `<div class="sold-actions-label">Cette carte a été vendue 🎉</div>`
-      : `${mkBtn(c.vinted,'btn-vinted','Vinted')}${mkBtn(c.leboncoin,'btn-leboncoin','Le Bon Coin')}${contactBtn(c)}`;
-
-    const langPill = c.language ? `<span class="meta-pill" title="Langue">${LANG_FLAGS[c.language]||c.language}</span>` : '';
-    const graderBar = `<div class="grader-bar"></div>`;
-
-    return `
-      <div class="card ${c.universe} ${c.sold?'sold-card':''}" data-universe="${c.universe}" data-id="${c.id}">
-        ${graderBar}
-        <div class="card-img-wrap">
-          ${imgHtml}
-          ${soldOverlay}
-          ${badgeHtml}
-          ${specialBadge}
-        </div>
-        <div class="card-body">
-          ${c.cardType?'<span class="card-type-tag">'+c.cardType+'</span>':''}
-          <div class="univ-tag univ-${c.universe}" style="display:inline-block;margin-bottom:2px;">${UNIV_SHORT[c.universe]||c.universe}</div>
-          <div class="card-name">${c.name}</div>
-          <div class="card-meta">
-            <span class="meta-pill">${c.set}</span>
-            <span class="meta-pill">#${c.number}</span>
-            ${langPill}
-          </div>
-          <div class="card-price"><span class="currency">€</span>${c.price.toLocaleString('fr-FR')}</div>
-          <div class="card-actions">${actions}</div>
-        </div>
-      </div>`;
-  }
-
-  // ── FILTERS ──
-  function cardMatchesGrader(c) { return graderFilter==='all' || c.gradingService===graderFilter; }
-  function cardMatchesLang(c)   { return langFilter==='all' || c.language===langFilter; }
-  function renderCurrent() {
-    if (currentView==='loose')  renderLoose(currentFilter);
-    else if (currentView==='sealed') renderSealed(currentFilter);
-    else renderAll(currentFilter);
-  }
-
-  function filterLang(l, btn) {
-    langFilter = l;
-    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active-lang'));
-    if (btn) btn.classList.add('active-lang');
-    renderCurrent();
-  }
-  function cardMatchesGrade(c) {
-    if (gradeFilter==='all') return true;
-    if (!c.gradingService || c.grade===null) return false;
-    if (gradeFilter==='10gold')  return c.grade==='10gold';
-    if (gradeFilter==='10black') return c.grade==='10black';
-    return String(c.grade)===gradeFilter;
-  }
-  function cardMatchesSearch(c) {
-    if (!searchQuery) return true;
-    const hay = [c.name,c.set,c.number,c.gradingService,c.grade,c.language,c.universe==='poke'?'pokemon':'one piece'].filter(Boolean).join(' ').toLowerCase();
-    return searchQuery.split(' ').every(w=>hay.includes(w));
-  }
-  function sortCards(arr) {
-    if (sortOrder==='asc')  return [...arr].sort((a,b)=>a.price-b.price);
-    if (sortOrder==='desc') return [...arr].sort((a,b)=>b.price-a.price);
-    return arr;
-  }
-
-  function filterGrader(g, btn) {
-    graderFilter = g;
-    document.querySelectorAll('.grader-btn').forEach(b=>b.classList.remove('active-grader'));
-    if (btn) btn.classList.add('active-grader');
-    renderCurrent();
-  }
-  function filterGrade(g, btn) {
-    gradeFilter = g;
-    document.querySelectorAll('.grade-btn:not(.grader-btn)').forEach(b=>b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    renderCurrent();
-  }
-  function clearSearch() {
-    document.getElementById('search-input').value='';
-    searchQuery='';
-    document.getElementById('search-clear').classList.remove('visible');
-    renderCurrent();
-  }
-
-  // ── RENDER ──
-  function renderAll(filter) {
-    currentFilter = filter;
-    const catalog  = document.getElementById('catalog');
-    const universes = filter==='all' ? ['poke','op','lol','db'] : [filter];
-    const labels    = { poke:'⚡ Pokémon', op:'☠️ One Piece', lol:'🎮 League of Legends Riftbound', rb:'⚔️ League of Legends Riftbound', db:'🐉 Dragon Ball Z' };
-
-    let html = '';
-
-    // Section Coup de cœur (seulement sans filtre actif et sans recherche)
-    if (!searchQuery && gradeFilter==='all' && graderFilter==='all') {
-      const favCards = CARDS.filter(c => c.featured && !c.sold && (filter==='all' || c.universe===filter) && cardMatchesLang(c));
-      if (favCards.length) {
-        html += `<div class="fav-section">
-          <div class="section-header"><h2 class="section-title fav-title">❤️ Coups de Cœur</h2></div>
-          ${carouselWrap('carousel-fav', sortCards(favCards).map(renderCard).join(''))}
-        </div>`;
-      }
-    }
-
-    // Sections normales
-    universes.forEach(u => {
-      const cards = sortCards(CARDS.filter(c => c.universe===u && !c.sold && cardMatchesSearch(c) && cardMatchesGrade(c) && cardMatchesGrader(c) && cardMatchesLang(c)));
-      if (!cards.length) return;
-      const showAll = filter !== 'all' || searchQuery || gradeFilter !== 'all' || graderFilter !== 'all';
-      const seeAllBtn = !showAll ? `<button class="see-all-btn" onclick="goToUniverse('${u}')">Voir tout →</button>` : '';
-      const gridClass = (filter === 'all') ? 'scroll-grid' : 'grid';
-      const gridContent = filter === 'all'
-        ? carouselWrap(`carousel-${u}`, cards.map(renderCard).join(''))
-        : `<div class="${gridClass}">${cards.map(renderCard).join('')}</div>`;
-      html += `<div class="section-header"><h2 class="section-title">${labels[u]}</h2>${seeAllBtn}</div>${gridContent}`;
+  if (!CARDS.length){
+    html = '';
+  } else if (home){
+    const favs = avail.filter(c => c.featured);
+    if (favs.length) html += section('favoris','Coups de cœur', carousel('r-fav', favs), { alt:true });
+    Object.keys(SECTIONS).forEach(u => {
+      const cs = avail.filter(c => c.universe === u);
+      if (cs.length) html += section('s-'+u, SECTIONS[u], carousel('r-'+u, cs), { more:u });
     });
-
-    // Vendus
-    const soldCards = CARDS.filter(c => c.sold && (filter==='all'||c.universe===filter) && cardMatchesSearch(c));
-    if (soldCards.length) {
-      const soldContent = filter==='all'
-        ? carouselWrap('carousel-sold', soldCards.map(renderCard).join(''))
-        : `<div class="grid">${soldCards.map(renderCard).join('')}</div>`;
-      html += `<div class="section-header"><h2 class="section-title sold-title">✅ Déjà Vendus</h2></div>${soldContent}`;
-    }
-
-    const totalVisible = CARDS.filter(c => !c.sold && (filter==='all'||c.universe===filter) && cardMatchesSearch(c) && cardMatchesGrade(c) && cardMatchesGrader(c) && cardMatchesLang(c)).length;
-    const countEl = document.getElementById('search-count');
-    if (countEl) countEl.textContent = searchQuery ? `${totalVisible} résultat${totalVisible!==1?'s':''}` : '';
-
-    if (!html) html = `<div class="grid"><div class="empty"><div class="icon">${searchQuery?'🔍':'📦'}</div><p>${searchQuery?'Aucune carte pour «'+searchQuery+'».':'Aucune carte dans cette catégorie.'}</p></div></div>`;
-    catalog.innerHTML = html;
-    updateHeroStats();
-    updateFilterButtons(CARDS);
+    if (!avail.length) html += section('vide','Cartes disponibles','<div class="empty"><h3>Aucune carte disponible</h3><p>Toutes les cartes sont vendues pour le moment. Rejoins Telegram pour le prochain arrivage.</p></div>');
+  } else if (avail.length){
+    html += section('resultats', S.univ !== 'all' ? SECTIONS[S.univ] : 'Résultats', `<div class="grid">${avail.map(cardHtml).join('')}</div>`);
+  } else if (!sold.length){
+    html += section('resultats','Résultats','<div class="empty"><h3>Aucune carte ne correspond</h3><p>Essaie d’autres filtres ou une autre recherche.</p></div>');
   }
+  if (sold.length) html += section('vendus','Déjà vendus', home ? carousel('r-sold', sold) : `<div class="grid">${sold.map(cardHtml).join('')}</div>`, { alt:true });
+  $('catalog').innerHTML = html;
+}
 
-  function updateHeroStats() {
-    const soldN = [...CARDS,...LOOSE,...SEALED].filter(c=>c.sold).length;
-    const total = 64 + soldN;
-    document.getElementById('stat-graded').textContent = CARDS.filter(c=>!c.sold).length;
-    document.getElementById('stat-sealed').textContent = SEALED.filter(c=>!c.sold).length;
-    document.getElementById('stat-loose').textContent  = LOOSE.filter(c=>!c.sold).length;
-    document.getElementById('stat-sold').textContent   = total;
-    document.getElementById('trust-sold').textContent  = total;
+/* ── fiche carte ── */
+let cur = null;
+function openCard(id){
+  const c = CARDS.find(x => x.id == id); if (!c) return;
+  cur = c;
+  const imgs = [c.image, c.image2].filter(Boolean);
+  const main = $('mImg');
+  main.style.display = imgs.length ? 'block' : 'none';
+  if (imgs.length){ main.src = imgs[0]; main.alt = c.name; }
+  $('mThumbs').innerHTML = imgs.length > 1 ? imgs.map((s,i) => `<img src="${esc(s)}" class="${i?'':'on'}" data-img="${i}" alt="">`).join('') : '';
+  const grade = c.grade === '10gold' ? '10 · Gold Label' : c.grade === '10black' ? '10 · Black Label' : c.grade;
+  const rows = [['Set',c.set],['Numéro',c.number],['Type',c.cardType],['Langue',c.language],['Gradeur',c.gradingService],['Note',grade],['Certification',c.cert]]
+    .filter(r => r[1] !== undefined && r[1] !== '' && r[1] !== null)
+    .map(r => `<div class="mrow"><span>${r[0]}</span><span>${esc(r[1])}</span></div>`).join('');
+  $('mInfo').innerHTML = `<span class="lbl" style="color:var(--gold)">${SECTIONS[c.universe]||''} · ${esc(c.language||'')}</span>
+    <h3>${esc(c.name)}</h3>${rows}<div class="mprice">${euro(c.price)}</div>
+    ${c.sold ? '<div class="btn sold-b">Carte vendue</div>' : buyButtons(c)}
+    <button class="btn" id="share" style="margin-top:10px;color:var(--soft)">Partager cette carte</button>`;
+  $('ovCard').classList.add('open'); document.body.style.overflow = 'hidden';
+}
+function closeAll(){
+  document.querySelectorAll('.ov').forEach(o => o.classList.remove('open'));
+  document.body.style.overflow = '';
+}
+function openPay(){ $('ovPay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+
+/* ── événements ── */
+document.addEventListener('click', e => {
+  const t = e.target;
+  const g = t.closest('[data-g]');
+  if (g){
+    e.preventDefault();
+    S[g.dataset.g] = g.dataset.v;
+    if (g.dataset.g === 'univ'){ S.note = 'all'; S.grader = 'all'; }
+    if (g.dataset.g === 'grader' && !NOTE_BY[S.grader].includes(S.note)) S.note = 'all';
+    render();
+    if (g.dataset.scroll) $('catalogue').scrollIntoView({ behavior:'smooth' });
+    return;
   }
-
-  function updateFilterButtons(source) {
-    const t = source.filter(c=>!c.sold).length;
-    const p = source.filter(c=>c.universe==='poke'&&!c.sold).length;
-    const o = source.filter(c=>c.universe==='op'&&!c.sold).length;
-    const l = source.filter(c=>c.universe==='lol'&&!c.sold).length;
-    const d = source.filter(c=>c.universe==='db'&&!c.sold).length;
-    document.getElementById('btn-all').textContent   = `Tout (${t})`;
-    document.getElementById('btn-poke').innerHTML    = `<span class="dot-poke"></span> Pokémon (${p})`;
-    document.getElementById('btn-op').innerHTML      = `<span class="dot-op"></span> One Piece (${o})`;
-    document.getElementById('btn-lol').innerHTML     = `<span class="dot-lol"></span> League of Legends Riftbound (${l})`;
-    document.getElementById('btn-db').innerHTML      = `<span class="dot-db"></span> Dragon Ball Z (${d})`;
+  if (t.closest('[data-pay]')){ e.preventDefault(); openPay(); return; }
+  const ar = t.closest('[data-scroll-row]');
+  if (ar){ $(ar.dataset.scrollRow).scrollBy({ left: ar.dataset.dir * 284, behavior:'smooth' }); return; }
+  if (t.closest('[data-close]') || t.classList.contains('ov')){ closeAll(); return; }
+  const th = t.closest('[data-img]');
+  if (th && cur){
+    const imgs = [cur.image, cur.image2].filter(Boolean);
+    $('mImg').src = imgs[th.dataset.img];
+    document.querySelectorAll('#mThumbs img').forEach((im,i) => im.classList.toggle('on', i == th.dataset.img));
+    return;
   }
-
-  function filterCards(f, btn) {
-    currentFilter = f;
-    gradeFilter='all'; graderFilter='all';
-    document.querySelectorAll('.grade-btn:not(.grader-btn)').forEach(b=>b.classList.remove('active'));
-    const fg = document.querySelector('.grade-btn:not(.grader-btn)');
-    if (fg) fg.classList.add('active');
-    document.querySelectorAll('.grader-btn').forEach(b=>b.classList.remove('active-grader'));
-    const fg2 = document.querySelector('.grader-btn');
-    if (fg2) fg2.classList.add('active-grader');
-    document.querySelectorAll('.tag-btn:not(.lang-btn)').forEach(b=>b.className='tag-btn');
-    document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
-    if (btn) {
-      btn.classList.add(f==='all'?'active-all':f==='poke'?'active-poke':f==='op'?'active-op':f==='lol'?'active-lol':'active-db');
-      btn.classList.add('active');
-    }
-    if (currentView==='loose')  renderLoose(f);
-    else if (currentView==='sealed') renderSealed(f);
-    else renderAll(f);
+  if (t.closest('#share') && cur){
+    const txt = `${cur.name} — ${cur.set||''} ${cur.number||''} | ${cur.gradingService||''} ${cur.grade||''} | ${euro(cur.price)} | Kevin-Boutique`;
+    const b = $('share');
+    if (navigator.share){ navigator.share({ title:'Kevin-Boutique', text:txt, url:location.href }).catch(()=>{}); }
+    else if (navigator.clipboard){ navigator.clipboard.writeText(txt + '\n' + location.href).then(() => { b.textContent = 'Lien copié'; setTimeout(() => b.textContent = 'Partager cette carte', 2000); }); }
+    return;
   }
+  if (t.closest('.no-modal')) return;
+  const card = t.closest('.card[data-id]');
+  if (card) openCard(card.dataset.id);
+});
+document.addEventListener('change', e => { if (e.target.id === 'sort'){ S.sort = e.target.value; render(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+$('q').addEventListener('input', e => { S.q = e.target.value.trim().toLowerCase(); render(); });
 
-  // ── MODAL ──
-  const LANG_FLAGS_MODAL = { FR:'🇫🇷', EN:'🇬🇧', JP:'🇯🇵', DE:'🇩🇪', ES:'🇪🇸', IT:'🇮🇹' };
-  let modalActiveImg=0, modalImgs=[];
-
-  let currentModalCard = null;
-  function openModal(id) {
-    const c = CARDS.find(x=>x.id===id);
-    if (!c) return;
-    currentModalCard = c;
-    modalImgs = [c.image, c.image2].filter(Boolean);
-    modalActiveImg = 0;
-    const mainImg = document.getElementById('modal-main-img');
-    const thumbsEl = document.getElementById('modal-thumbs');
-    document.querySelector('.modal-no-img')?.remove();
-    if (modalImgs.length > 0) { mainImg.src=modalImgs[0]; mainImg.alt=c.name; mainImg.style.display='block'; }
-    else { mainImg.style.display='none'; const ni=document.createElement('div'); ni.className='modal-no-img'; ni.textContent=UNIV_ICON[c.universe]||'🃏'; document.getElementById('modal-images').insertBefore(ni,thumbsEl); }
-    thumbsEl.innerHTML='';
-    if (modalImgs.length>1) {
-      modalImgs.forEach((src,i)=>{ const img=document.createElement('img'); img.src=src; img.className='modal-thumb'+(i===0?' active':''); img.onclick=e=>{e.stopPropagation();switchModalImg(i);}; thumbsEl.appendChild(img); });
-    }
-    const univColor = UNIV_COLORS[c.universe]||'#ccc';
-    const univTag = document.getElementById('modal-univ-tag');
-    univTag.textContent = UNIV_LABEL[c.universe]||c.universe;
-    univTag.style.background = univColor+'22';
-    univTag.style.color = univColor;
-    document.getElementById('modal-images').style.borderTop = `5px solid ${univColor}`;
-    document.getElementById('modal-title').textContent  = c.name;
-    document.getElementById('modal-set').textContent    = c.set;
-    document.getElementById('modal-number').textContent = '#'+c.number;
-    document.getElementById('modal-type').textContent   = c.cardType||'—';
-    document.getElementById('modal-lang').textContent   = (LANG_FLAGS_MODAL[c.language]||'🌐')+' '+(c.language||'—');
-    const gradeEl = document.getElementById('modal-grade');
-    if (c.gradingService && c.grade) {
-      const gl = c.grade==='10gold'?'10 ✨ Gold':c.grade==='10black'?'10 ⚫ Black':c.grade;
-      gradeEl.textContent = `${c.gradingService==='Collectura'?'CA':c.gradingService} — ${gl}`;
-    } else gradeEl.textContent = '—';
-    document.getElementById('modal-price').textContent = c.price.toLocaleString('fr-FR');
-    const actEl = document.getElementById('modal-actions');
-    if (c.sold) { actEl.innerHTML='<div class="modal-sold-label">Cette carte a été vendue 🎉</div>'; }
-    else {
-      actEl.innerHTML = [
-        {url:c.vinted,    cls:'btn-vinted',    label:'Vinted'},
-        {url:c.leboncoin, cls:'btn-leboncoin',  label:'Le Bon Coin'},
-      ].map(b=>b.url?`<a class="btn ${b.cls}" href="${b.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${b.label}</a>`:`<span class="btn btn-disabled">🔒 ${b.label}</span>`).join('')
-      + `<button class="btn btn-contact" style="background:var(--dark);color:#fff;" onclick="closeModalDirect();document.getElementById('contact-modal').classList.add('open')">💬 Contact</button>`;
-    }
-    document.getElementById('modal-overlay').classList.add('open');
-    document.body.style.overflow='hidden';
-  }
-
-  function switchModalImg(idx) {
-    modalActiveImg=idx;
-    document.getElementById('modal-main-img').src=modalImgs[idx];
-    document.querySelectorAll('.modal-thumb').forEach((t,i)=>t.classList.toggle('active',i===idx));
-  }
-  function closeModalDirect() {
-    document.getElementById('modal-overlay').classList.remove('open');
-    document.body.style.overflow='';
-  }
-
-  // ── EVENTS ──
-  document.addEventListener('DOMContentLoaded', () => {
-    // Recherche
-    const input = document.getElementById('search-input');
-    const clearBtn = document.getElementById('search-clear');
-    input.addEventListener('input', () => {
-      searchQuery = input.value.trim().toLowerCase();
-      clearBtn.classList.toggle('visible', searchQuery.length>0);
-      renderCurrent();
-    });
-    clearBtn.addEventListener('click', clearSearch);
-
-    // Tri
-    document.getElementById('sort-select').addEventListener('change', function() {
-      sortOrder = this.value;
-      renderCurrent();
-    });
-
-    // Clic sur les cartes (délégation)
-    document.getElementById('catalog').addEventListener('click', function(e) {
-      if (e.target.closest('.no-modal')) return;
-      const card = e.target.closest('.card[data-id]');
-      if (!card) return;
-      const rawId = card.dataset.id;
-      if (rawId && rawId.startsWith('s')) openSealedModal(parseInt(rawId.slice(1)));
-      else if (rawId && rawId.startsWith('l')) openLooseModal(parseInt(rawId.slice(1)));
-      else openModal(parseInt(rawId));
-    });
-
-    // Support tactile mobile — distingue tap vs scroll
-    let _tx = 0, _ty = 0;
-    document.getElementById('catalog').addEventListener('touchstart', function(e) {
-      _tx = e.touches[0].clientX;
-      _ty = e.touches[0].clientY;
-    }, { passive: true });
-
-    document.getElementById('catalog').addEventListener('touchend', function(e) {
-      const dx = Math.abs(e.changedTouches[0].clientX - _tx);
-      const dy = Math.abs(e.changedTouches[0].clientY - _ty);
-      if (dx > 8 || dy > 8) return;
-      if (e.target.closest('.no-modal')) return;
-      const card = e.target.closest('.card[data-id]');
-      if (!card) return;
-      e.preventDefault();
-      const rawId = card.dataset.id;
-      if (rawId && rawId.startsWith('s')) openSealedModal(parseInt(rawId.slice(1)));
-      else if (rawId && rawId.startsWith('l')) openLooseModal(parseInt(rawId.slice(1)));
-      else openModal(parseInt(rawId));
-    }, { passive: false });
-
-    // Fermeture modale
-    document.getElementById('modal-overlay').addEventListener('click', function(e) { if (e.target===this) closeModalDirect(); });
-    document.getElementById('modal-close-btn').addEventListener('click', closeModalDirect);
-    document.addEventListener('keydown', e=>{ if (e.key==='Escape') closeModalDirect(); });
-  });
-
-  function carouselWrap(id, innerHtml) {
-    return `<div class="carousel-wrap">
-      <button class="carousel-arrow left"  onclick="scrollCarousel('${id}',-1)">&#8249;</button>
-      <div class="scroll-grid" id="${id}">${innerHtml}</div>
-      <button class="carousel-arrow right" onclick="scrollCarousel('${id}', 1)">&#8250;</button>
-    </div>`;
-  }
-  function scrollCarousel(id, dir) {
-    const el = document.getElementById(id);
-    if (el) el.scrollBy({ left: dir * 280, behavior: 'smooth' });
-  }
-
-  function openLooseModal(id) {
-    const c = LOOSE.find(x => x.id === id);
-    if (!c) return;
-    currentModalCard = c;
-    modalImgs = [c.image, c.image2].filter(Boolean);
-    const mainImg = document.getElementById('modal-main-img');
-    const thumbsEl = document.getElementById('modal-thumbs');
-    thumbsEl.innerHTML = '';
-    if (modalImgs.length > 0) { mainImg.src = modalImgs[0]; mainImg.style.display = 'block'; }
-    else { mainImg.style.display = 'none'; }
-    if (modalImgs.length > 1) {
-      modalImgs.forEach((src, i) => {
-        const img = document.createElement('img');
-        img.src = src; img.className = 'modal-thumb'+(i===0?' active':'');
-        img.onclick = (e) => { e.stopPropagation(); switchModalImg(i); };
-        thumbsEl.appendChild(img);
-      });
-    }
-    const univColor = UNIV_COLORS[c.universe] || '#ccc';
-    const univTag = document.getElementById('modal-univ-tag');
-    univTag.textContent = UNIV_SHORT[c.universe] || c.universe;
-    univTag.style.background = univColor+'20'; univTag.style.color = univColor;
-    document.getElementById('modal-images').style.borderTop = `5px solid ${univColor}`;
-    document.getElementById('modal-title').textContent   = c.name;
-    document.getElementById('modal-set').textContent     = c.set;
-    document.getElementById('modal-number').textContent  = '#'+c.number;
-    document.getElementById('modal-type').textContent    = c.cardType || '—';
-    document.getElementById('modal-lang').textContent    = (LANG_FLAGS[c.language]||'')+' '+(c.language||'—');
-    document.getElementById('modal-grade').textContent   = '🎴 Non gradée — '+c.condition;
-    document.getElementById('modal-price').textContent   = c.price.toLocaleString('fr-FR');
-    const actEl = document.getElementById('modal-actions');
-    actEl.innerHTML = c.sold
-      ? `<div class="modal-sold-label">Cette carte a été vendue 🎉</div>`
-      : [
-          {url:c.vinted,    cls:'btn-vinted',    label:'Vinted'},
-          {url:c.leboncoin, cls:'btn-leboncoin',  label:'Le Bon Coin'},
-        ].map(b => b.url
-          ? `<a class="btn ${b.cls}" href="${b.url}" target="_blank" rel="noopener">${b.label}</a>`
-          : `<span class="btn btn-disabled">🔒 ${b.label}</span>`
-        ).join('')
-        + `<button class="btn btn-contact" style="grid-column:span 2;background:var(--dark);color:#fff;" onclick="document.getElementById('modal-overlay').classList.remove('open');document.getElementById('contact-modal').classList.add('open');">💬 Contact</button>`;
-    document.getElementById('modal-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function openSealedModal(id) {
-    const c = SEALED.find(x => x.id === id);
-    if (!c) return;
-    currentModalCard = c;
-    const mainImg = document.getElementById('modal-main-img');
-    const thumbsEl = document.getElementById('modal-thumbs');
-    thumbsEl.innerHTML = '';
-    if (c.image) { mainImg.src = c.image; mainImg.style.display = 'block'; }
-    else { mainImg.style.display = 'none'; }
-    const univColor = UNIV_COLORS[c.universe] || '#ccc';
-    const univTag = document.getElementById('modal-univ-tag');
-    univTag.textContent = UNIV_SHORT[c.universe] || c.universe;
-    univTag.style.background = univColor + '20';
-    univTag.style.color = univColor;
-    document.getElementById('modal-images').style.borderTop = `5px solid ${univColor}`;
-    document.getElementById('modal-title').textContent   = c.name;
-    document.getElementById('modal-set').textContent     = c.edition;
-    document.getElementById('modal-number').textContent  = '📦 Scellé';
-    document.getElementById('modal-type').textContent    = c.condition;
-    document.getElementById('modal-lang').textContent    = (LANG_FLAGS[c.language]||'') + ' ' + (c.language||'—');
-    document.getElementById('modal-grade').textContent   = '💬 Contact uniquement';
-    document.getElementById('modal-price').textContent   = c.price.toLocaleString('fr-FR');
-    document.getElementById('modal-actions').innerHTML   = c.sold
-      ? `<div class="modal-sold-label">Ce produit a été vendu 🎉</div>`
-      : `<button class="btn btn-contact" style="grid-column:span 2;background:var(--dark);color:#fff;border-radius:10px;padding:10px;font-family:'Nunito',sans-serif;font-weight:800;font-size:0.85rem;border:none;cursor:pointer;width:100%;" onclick="document.getElementById('modal-overlay').classList.remove('open');document.getElementById('contact-modal').classList.add('open');">💬 Contact</button>`;
-    document.getElementById('modal-overlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function shareCard() {
-    if (!currentModalCard) return;
-    const c = currentModalCard;
-    const text = `${c.name} — ${c.set} #${c.number} | ${c.gradingService} ${c.grade} | €${c.price} | KardCollect TCG`;
-    const url = window.location.href;
-    const btn = document.getElementById('modal-share-btn');
-    if (navigator.share) {
-      navigator.share({ title: 'KardCollect TCG', text, url });
-    } else {
-      navigator.clipboard.writeText(`${text}\n${url}`).then(() => {
-        btn.textContent = '✅ Lien copié !';
-        btn.classList.add('copied');
-        setTimeout(() => { btn.textContent = '🔗 Partager cette carte'; btn.classList.remove('copied'); }, 2000);
-      });
-    }
-  }
-
-  function renderSealedCard(c) {
-    const imgHtml = c.image
-      ? `<img src="${c.image}" alt="${c.name}" loading="lazy" />`
-      : `<div class="placeholder-art">${UNIV_ICON[c.universe]||'📦'}<span>${UNIV_SHORT[c.universe]||c.universe}</span></div>`;
-    const soldOverlay = c.sold ? `<div class="sold-overlay"><span class="sold-stamp">VENDU</span></div>` : '';
-    const actions = c.sold
-      ? `<div class="sold-actions-label">Ce produit a été vendu 🎉</div>`
-      : `<button class="btn btn-contact no-modal" onclick="document.getElementById('contact-modal').classList.add('open')" style="grid-column:span 2;background:var(--dark);color:#fff;">💬 Contact</button>`;
-    const langPill = c.language ? `<span class="meta-pill">${LANG_FLAGS[c.language]||c.language}</span>` : '';
-    return `
-      <div class="card ${c.universe} ${c.sold?'sold-card':''}" data-universe="${c.universe}" data-id="s${c.id}">
-        <div class="grader-bar"></div>
-        <div class="card-img-wrap">${imgHtml}${soldOverlay}</div>
-        <div class="card-body">
-          <span class="card-type-tag">📦 Scellé</span>
-          <div class="univ-tag univ-${c.universe}" style="display:inline-block;margin-bottom:2px;">${UNIV_SHORT[c.universe]||c.universe}</div>
-          <div class="card-name">${c.name}</div>
-          <div class="card-meta">
-            <span class="meta-pill">${c.edition}</span>
-            ${langPill}
-            <span class="meta-pill">✨ ${c.condition}</span>
-          </div>
-          <div class="card-price"><span class="currency">€</span>${c.price.toLocaleString('fr-FR')}</div>
-          <div class="card-actions">${actions}</div>
-        </div>
-      </div>`;
-  }
-
-  function renderSealed(filter) {
-    const catalog = document.getElementById('catalog');
-    const items = sortCards(SEALED.filter(c => !c.sold
-      && (filter==='all'||c.universe===filter)
-      && cardMatchesLang(c)
-      && cardMatchesSearch(c)
-    ));
-    let html = '';
-    if (items.length) html = `<div class="grid">${items.map(renderSealedCard).join('')}</div>`;
-    const soldItems = SEALED.filter(c => c.sold && (filter==='all'||c.universe===filter));
-    if (soldItems.length) html += `<div class="section-header"><h2 class="section-title sold-title">✅ Déjà Vendus</h2></div><div class="grid">${soldItems.map(renderSealedCard).join('')}</div>`;
-    if (!html) html = `<div class="grid"><div class="empty"><div class="icon">📦</div><p>Aucun produit scellé pour l'instant. Rejoindre → !</p></div></div>`;
-    catalog.innerHTML = html;
-    updateHeroStats();
-    updateFilterButtons(SEALED);
-  }
-
-  function renderLooseCard(c) {
-    const imgHtml = c.image
-      ? `<img src="${c.image}" alt="${c.name}" loading="lazy" />`
-      : `<div class="placeholder-art">${UNIV_ICON[c.universe]||'🎴'}<span>${UNIV_SHORT[c.universe]||c.universe}</span></div>`;
-    const soldOverlay = c.sold ? `<div class="sold-overlay"><span class="sold-stamp">VENDU</span></div>` : '';
-    const actions = c.sold
-      ? `<div class="sold-actions-label">Cette carte a été vendue 🎉</div>`
-      : `${mkBtn(c.vinted,'btn-vinted','Vinted')}${mkBtn(c.leboncoin,'btn-leboncoin','Le Bon Coin')}<button class="btn btn-contact no-modal" style="grid-column:span 2;" onclick="document.getElementById('contact-modal').classList.add('open')">💬 Contact</button>`;
-    const langPill = c.language ? `<span class="meta-pill">${LANG_FLAGS[c.language]||c.language}</span>` : '';
-    return `
-      <div class="card ${c.universe} ${c.sold?'sold-card':''}" data-universe="${c.universe}" data-id="l${c.id}">
-        <div class="grader-bar"></div>
-        <div class="card-img-wrap">${imgHtml}${soldOverlay}</div>
-        <div class="card-body">
-          ${c.cardType ? `<span class="card-type-tag">${c.cardType}</span>` : ''}
-          <div class="univ-tag univ-${c.universe}" style="display:inline-block;margin-bottom:2px;">${UNIV_SHORT[c.universe]||c.universe}</div>
-          <div class="card-name">${c.name}</div>
-          <div class="card-meta">
-            <span class="meta-pill">${c.set}</span>
-            <span class="meta-pill">#${c.number}</span>
-            ${langPill}
-            <span class="meta-pill">✨ ${c.condition}</span>
-          </div>
-          <div class="card-price"><span class="currency">€</span>${c.price.toLocaleString('fr-FR')}</div>
-          <div class="card-actions">${actions}</div>
-        </div>
-      </div>`;
-  }
-
-  function renderLoose(filter) {
-    const catalog = document.getElementById('catalog');
-    let items = sortCards(LOOSE.filter(c => !c.sold
-      && (filter==='all' || c.universe===filter)
-      && cardMatchesLang(c)
-      && cardMatchesSearch(c)
-    ));
-    let html = '';
-    if (items.length) {
-      html = `<div class="grid">${items.map(renderLooseCard).join('')}</div>`;
-    }
-    const soldItems = LOOSE.filter(c => c.sold && (filter==='all'||c.universe===filter));
-    if (soldItems.length) html += `<div class="section-header"><h2 class="section-title sold-title">✅ Déjà Vendus</h2></div><div class="grid">${soldItems.map(renderLooseCard).join('')}</div>`;
-    if (!html) html = `<div class="grid"><div class="empty"><div class="icon">🎴</div><p>Aucune carte loose pour l'instant.</p></div></div>`;
-    catalog.innerHTML = html;
-    updateHeroStats();
-    updateFilterButtons(LOOSE);
-  }
-
-  function switchView(view) {
-    currentView = view;
-    document.getElementById('cat-graded').classList.toggle('active-cat', view==='graded');
-    document.getElementById('cat-sealed').classList.toggle('active-cat', view==='sealed');
-    document.getElementById('cat-loose').classList.toggle('active-cat',  view==='loose');
-    document.querySelector('.controls').style.display      = '';
-    document.querySelector('.grade-filters').style.display = view==='graded' ? '' : 'none';
-    if (view==='graded') renderAll(currentFilter);
-    else if (view==='sealed') renderSealed('all');
-    else renderLoose(currentFilter);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function goToSold() {
-    // S'assurer qu'on est en vue "tout" pour voir les vendus
-    filterCards('all', null);
-    // Petit délai pour laisser le rendu se faire puis scroller
-    setTimeout(() => {
-      const soldTitle = [...document.querySelectorAll('.section-title')].find(el => el.textContent.includes('Déjà Vendus'));
-      if (soldTitle) soldTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
-  }
-
-  function goToUniverse(u) {
-    const navBtns = document.querySelectorAll('nav button');
-    const map = { all:0, poke:1, op:2, lol:3, db:4 };
-    filterCards(u, navBtns[map[u]] || null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  renderAll('all');
+render();
 </script>
 </body>
 </html>
